@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-rzpatvh59(y&il&4-jx)s(1$q%77bf&*3m*o-9&93b+&0qxkiv
 DEBUG = True
 
 ALLOWED_HOSTS = []
+DOMAIN_NAME = 'http://localhost:8000'
 
 
 # Application definition
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 
     'products',
     'users',
@@ -138,3 +140,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # user
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/user/login/'
+
+# email
+RECIPIENTS_EMAIL = ['manager@mysite.com']
+DEFAULT_FROM_EMAIL = 'admin@mysite.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
