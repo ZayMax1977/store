@@ -144,4 +144,12 @@ LOGIN_URL = '/user/login/'
 # email
 RECIPIENTS_EMAIL = ['manager@mysite.com']
 DEFAULT_FROM_EMAIL = 'admin@mysite.com'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'maxim.zanchenko@yandex.ru'
+EMAIL_HOST_PASSWORD = 'teleskop1977'
+EMAIL_USE_TLS = True
+SERVER_EMAIL = 'maxim.zanchenko@yandex.ru'
+
