@@ -31536,14 +31536,23 @@ class BasketAdmin(admin.TabularInline):\line     model = Basket\line     fields 
 16. \f1\lang1033\par
 \cf3\ul\i store/settings.py\par
 \cf2\ulnone\i0\strike EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"\cf3\ul\i\strike0\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\ulnone\i0\f2 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"\line EMAIL_HOST = 'smtp.yandex.ru'\line EMAIL_PORT = \b 587\line\b0 EMAIL_HOST_USER = 'maxim.zanchenko@yandex.ru'\f1 // \f0\lang1049\'ee\'f2 \'ea\'f3\'e4\'e0(\'f1\'e0\'e9\'f2)\f2\lang1033\line EMAIL_HOST_PASSWORD = 'teleskop1977'\line EMAIL_USE_TLS = True\line SERVER_EMAIL = 'maxim.zanchenko@yandex.ru'\par
+\cf1\ulnone\i0\f2 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"\line EMAIL_HOST = 'smtp.yandex.ru'\line EMAIL_PORT = \b 587\line\b0 EMAIL_HOST_USER = 'maxim.zanchenko@yandex.ru'\f1 // \f0\lang1049\'ee\'f2 \'ea\'f3\'e4\'e0(\'f1\'e0\'e9\'f2)\f2\lang1033\line EMAIL_HOST_PASSWORD = 'teleskop1977'\line EMAIL_USE_TLS = True\line SERVER_EMAIL = 'maxim.zanchenko@yandex.ru'\par
 \cf3\ul\i users/models.py\par
 \cf2\ulnone\i0 def send_verification_email(self):\line     link = reverse('users:email_verification'\b ,\b0 kwargs = \{'email':self.user.email\b , \b0 'code':self.code\})\line     verification_link = f'\{settings.DOMAIN_NAME\}\{link\}'\line     subject = f'\f0\lang1049\'cf\'ee\'e4\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'e5\f2\lang1033  \f0\lang1049\'f3\'f7\'e5\'f2\'ed\'ee\'e9\f2\lang1033  \f0\lang1049\'e7\'e0\'ef\'e8\'f1\'e8\f2\lang1033  \f0\lang1049\'e4\'eb\'ff\f2\lang1033  \{self.user.username\}'\line     message = '\f0\lang1049\'c4\'eb\'ff\f2\lang1033  \f0\lang1049\'ef\'ee\'e4\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'ff\f2\lang1033  \f0\lang1049\'f3\'f7\'e5\'f2\'ed\'ee\'e9\f2\lang1033  \f0\lang1049\'e7\'e0\'ef\'e8\'f1\'e8\f2\lang1033  \f0\lang1049\'e4\'eb\'ff\f2\lang1033  \{\},\f0\lang1049\'ef\'e5\'f0\'e5\'e9\'e4\'e8\'f2\'e5\f2\lang1033  \f0\lang1049\'ef\'ee\f2\lang1033  \f0\lang1049\'f1\'f1\'fb\'eb\'ea\'e5\f2\lang1033  \{\}'.format(\line         self.user.email\b ,\line         \b0 verification_link\line     )\line     send_mail(\line         subject = subject\b ,\line         \b0 message = message\b ,\line\strike         \b0 from_email = "from@example.com"\b ,\par
 \cf1\b0\strike0\f1\tab        \f2 from_email = settings.EMAIL_HOST_USER\b ,\cf2\strike\line\strike0         \b0 recipient_list = [self.user.email]\b ,\line         \b0 fail_silently=False\b ,\line     \b0 )\par
+\cf0\f0\lang1049 17. \'ca\'ee\'ed\'f2\'e5\'ea\'f1\'f2\'ed\'fb\'e5 \'ef\'f0\'ee\'f6\'e5\'f1\'f1\'ee\'f0\'fb. \'c4\'e5\'eb\'e0\'e5\'ec \'ef\'e5\'f0\'e5\'ec\'e5\'ed\'ed\'fb\'e5 \'ed\'e0 \'e3\'eb\'ee\'e1\'e0\'eb\'fc\'ed\'ee\'ec \'f3\'f0\'ee\'e2\'ed\'e5.\f1\lang1033\par
 
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ul\i\par
-\cf1\ulnone\b\i0\par
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f0\lang1049\'f1\'ee\'e7\'e4\'e0\'f2\'fc \cf10\f2 context_processors\f1\lang1033 .py:\line\cf3\ul\i\f2 products/context_processors.py\par
+\cf1\ulnone\i0 def baskets(request):\line     user = request.user\line\f1            \f2 return  \{'baskets': Basket.objects.filter(user=user) if user.is_authenticated else []\}\par
+\cf3\ul\i store/settings.py\par
+\cf2\ulnone\i0 TEMPLATES = [\line     \{\line         'BACKEND': 'django.template.backends.django.DjangoTemplates'\b ,\line         \b0 'DIRS': []\b ,\line         \b0 'APP_DIRS': True\b ,\line         \b0 'OPTIONS': \{\line             'context_processors': [\line                 'django.template.context_processors.debug'\b ,\line                 \b0 'django.template.context_processors.request'\b ,\line                 \b0 'django.contrib.auth.context_processors.auth'\b ,\line                 \b0 'django.contrib.messages.context_processors.messages'\b ,\line\cf1\b0 'products.context_processors.baskets'\line\cf2             ]\b ,\line         \b0\}\b ,\line     \b0\}\b ,\line\b0 ]\par
+\cf3\ul\i users/views.py\par
+\cf2\ulnone\i0 class UserUpdateView(TitleMixin\b ,\b0 UpdateView):\line     model = User\line     form_class = UserProfileForm\line     template_name = 'users/profile.html'\line     title = 'Store - \f0\lang1049\'cb\'e8\'f7\'ed\'fb\'e9\f2\lang1033  \f0\lang1049\'ea\'e0\'e1\'e8\'ed\'e5\'f2\f2\lang1033 '\line\line     def get_success_url(self):\line         return reverse_lazy('users:profile'\b ,\b0 args =(self.object.id\b ,\b0 ))\line\line\strike     def get_context_data(self\b , \b0 *\b , \b0 object_list=None\b , \b0 **kwargs):\line         context = super(UserUpdateView\b , \b0 self).get_context_data()\line         context['baskets'] = Basket.objects.filter(user=self.request.user)\line         return context\line\cf7\strike0\par
+\cf3\ul\i\par
+\cf10\ulnone\i0\lang1049\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf0\lang1033\par
+\cf1\b\par
 \cf3\ul\b0\i\par
 \par
 \cf1\ulnone\i0\par
