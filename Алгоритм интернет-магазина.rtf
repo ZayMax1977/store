@@ -31547,7 +31547,18 @@ class BasketAdmin(admin.TabularInline):\line     model = Basket\line     fields 
 \cf3\ul\i store/settings.py\par
 \cf2\ulnone\i0 TEMPLATES = [\line     \{\line         'BACKEND': 'django.template.backends.django.DjangoTemplates'\b ,\line         \b0 'DIRS': []\b ,\line         \b0 'APP_DIRS': True\b ,\line         \b0 'OPTIONS': \{\line             'context_processors': [\line                 'django.template.context_processors.debug'\b ,\line                 \b0 'django.template.context_processors.request'\b ,\line                 \b0 'django.contrib.auth.context_processors.auth'\b ,\line                 \b0 'django.contrib.messages.context_processors.messages'\b ,\line\cf1\b0 'products.context_processors.baskets'\line\cf2             ]\b ,\line         \b0\}\b ,\line     \b0\}\b ,\line\b0 ]\par
 \cf3\ul\i users/views.py\par
-\cf2\ulnone\i0 class UserUpdateView(TitleMixin\b ,\b0 UpdateView):\line     model = User\line     form_class = UserProfileForm\line     template_name = 'users/profile.html'\line     title = 'Store - \f0\lang1049\'cb\'e8\'f7\'ed\'fb\'e9\f2\lang1033  \f0\lang1049\'ea\'e0\'e1\'e8\'ed\'e5\'f2\f2\lang1033 '\line\line     def get_success_url(self):\line         return reverse_lazy('users:profile'\b ,\b0 args =(self.object.id\b ,\b0 ))\line\line\strike     def get_context_data(self\b , \b0 *\b , \b0 object_list=None\b , \b0 **kwargs):\line         context = super(UserUpdateView\b , \b0 self).get_context_data()\line         context['baskets'] = Basket.objects.filter(user=self.request.user)\line         return context\line\cf7\strike0\par
+\cf2\ulnone\i0 class UserUpdateView(TitleMixin\b ,\b0 UpdateView):\line     model = User\line     form_class = UserProfileForm\line     template_name = 'users/profile.html'\line     title = 'Store - \f0\lang1049\'cb\'e8\'f7\'ed\'fb\'e9\f2\lang1033  \f0\lang1049\'ea\'e0\'e1\'e8\'ed\'e5\'f2\f2\lang1033 '\line\line     def get_success_url(self):\line         return reverse_lazy('users:profile'\b ,\b0 args =(self.object.id\b ,\b0 ))\line\line\strike     def get_context_data(self\b , \b0 *\b , \b0 object_list=None\b , \b0 **kwargs):\line         context = super(UserUpdateView\b , \b0 self).get_context_data()\line         context['baskets'] = Basket.objects.filter(user=self.request.user)\line         return context\par
+\line\cf0\strike0\f0\lang1049 18. \'cb\'e8\'ed\'f2\'e5\'f0\'fb \'e8 \'f4\'ee\'f0\'ec\'e0\'f2\'e5\'f0\'fb - \'ef\'eb\'e4\'e4\'e5\'f0\'e6\'e0\'ed\'e8\'e5 \'ea\'ee\'e4\'e0 \'e2 \'f1\'f2\'e0\'ed\'e4\'e0\'f0\'f2\'e0\'f5 \f1\lang1033 PEP8\par
+\f0\lang1049\'d4\'ee\'f0\'ec\'e0\'f2\'e5\'f0\'fb - \'f3\'ef\'ee\'f0\'ff\'e4\'ee\'f7\'e8\'e2\'e0\'fe\'f2 \'e8\'ec\'ef\'ee\'f0\'f2\'fb (\f1\lang1033 Isort\f0\lang1049 )\par
+\'cb\'e8\'ed\'f2\'e5\'f0\'fb - \'ef\'f0\'ee\'e2\'e5\'f0\'ea\'e0 \'ef\'ee\'e4 \f1\lang1033 PEP8 \f0\lang1049 (\f1\lang1033 flake8)\f2\par
+\f1 19. pip install flake8 isort\par
+20. flake8 .    -   \f0\lang1049\'cf\'f0\'ee\'e9\'e4\'e5\'f2\'f1\'ff \'ef\'ee \'e2\'f1\'e5\'ec\'f3 \'ef\'f0\'ee\'e5\'ea\'f2\'f3 \'e8 \'ed\'e0\'e9\'e4\'e5\'f2 \'ee\'f8\'e8\'e1\'ea\'e0\par
+\f1\lang1033 21.\f0\lang1049\'f1\'ee\'e7\'e4\'e0\'e4\'e8\'ec\f1\lang1033 :\par
+\cf3\ul\i .flake8\par
+\cf1\ulnone\i0\f2 [flake8]\line exclude = migrations\line max-line-length = 120\par
+\cf0\f0\lang1049\'f3\'e1\'e5\'f0\'f3\'f2\'f1\'ff \'ee\'f8\'e8\'e1\'ea\'e8 \'ec\'e0\'ea\'f1\'e8\'ec\'e0\'eb\'fc\'ed\'ee\'e9 \'e4\'eb\'e8\'e8\'ed\'fb \'ef\'e8\'f2\'ee\'ed\'ee\'e2\'f1\'ea\'ee\'e9 \'f1\'f2\'f0\'ee\'ea\'e8 \'e2 79 \'f1\'e8\'ec\'e2\'ee\'eb\'ee\'e2\par
+22. \f1\lang1033 isort .    -   \f0\lang1049\'cf\'f0\'ee\'e9\'e4\'e5\'f2\'f1\'ff \'ef\'ee \'e2\'f1\'e5\'ec\'f3 \'ef\'f0\'ee\'e5\'ea\'f2\'f3 \'e8 \'ed\'e0\'e9\'e4\'e5\'f2 \'ee\'f8\'e8\'e1\'ea\'c8 \'e8\'ec\'ef\'ee\'f0\'f2\'e0\par
+\f2\lang1033\par
 \cf3\ul\i\par
 \cf10\ulnone\i0\lang1049\par
 

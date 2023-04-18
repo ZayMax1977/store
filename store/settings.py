@@ -126,7 +126,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (BASE_DIR / 'static',)
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
@@ -153,4 +153,3 @@ EMAIL_HOST_USER = 'maxim.zanchenko@yandex.ru'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 SERVER_EMAIL = 'maxim.zanchenko@yandex.ru'
-
