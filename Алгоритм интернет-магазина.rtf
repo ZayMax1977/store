@@ -31541,8 +31541,7 @@ class BasketAdmin(admin.TabularInline):\line     model = Basket\line     fields 
 \cf2\ulnone\i0 def send_verification_email(self):\line     link = reverse('users:email_verification'\b ,\b0 kwargs = \{'email':self.user.email\b , \b0 'code':self.code\})\line     verification_link = f'\{settings.DOMAIN_NAME\}\{link\}'\line     subject = f'\f0\lang1049\'cf\'ee\'e4\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'e5\f2\lang1033  \f0\lang1049\'f3\'f7\'e5\'f2\'ed\'ee\'e9\f2\lang1033  \f0\lang1049\'e7\'e0\'ef\'e8\'f1\'e8\f2\lang1033  \f0\lang1049\'e4\'eb\'ff\f2\lang1033  \{self.user.username\}'\line     message = '\f0\lang1049\'c4\'eb\'ff\f2\lang1033  \f0\lang1049\'ef\'ee\'e4\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'ff\f2\lang1033  \f0\lang1049\'f3\'f7\'e5\'f2\'ed\'ee\'e9\f2\lang1033  \f0\lang1049\'e7\'e0\'ef\'e8\'f1\'e8\f2\lang1033  \f0\lang1049\'e4\'eb\'ff\f2\lang1033  \{\},\f0\lang1049\'ef\'e5\'f0\'e5\'e9\'e4\'e8\'f2\'e5\f2\lang1033  \f0\lang1049\'ef\'ee\f2\lang1033  \f0\lang1049\'f1\'f1\'fb\'eb\'ea\'e5\f2\lang1033  \{\}'.format(\line         self.user.email\b ,\line         \b0 verification_link\line     )\line     send_mail(\line         subject = subject\b ,\line         \b0 message = message\b ,\line\strike         \b0 from_email = "from@example.com"\b ,\par
 \cf1\b0\strike0\f1\tab        \f2 from_email = settings.EMAIL_HOST_USER\b ,\cf2\strike\line\strike0         \b0 recipient_list = [self.user.email]\b ,\line         \b0 fail_silently=False\b ,\line     \b0 )\par
 \cf0\f0\lang1049 17. \'ca\'ee\'ed\'f2\'e5\'ea\'f1\'f2\'ed\'fb\'e5 \'ef\'f0\'ee\'f6\'e5\'f1\'f1\'ee\'f0\'fb. \'c4\'e5\'eb\'e0\'e5\'ec \'ef\'e5\'f0\'e5\'ec\'e5\'ed\'ed\'fb\'e5 \'ed\'e0 \'e3\'eb\'ee\'e1\'e0\'eb\'fc\'ed\'ee\'ec \'f3\'f0\'ee\'e2\'ed\'e5.\f1\lang1033\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f0\lang1049\'f1\'ee\'e7\'e4\'e0\'f2\'fc \cf10\f2 context_processors\f1\lang1033 .py:\line\cf3\ul\i\f2 products/context_processors.py\par
+\f0\lang1049\'f1\'ee\'e7\'e4\'e0\'f2\'fc \cf10\f2 context_processors\f1\lang1033 .py:\line\cf3\ul\i\f2 products/context_processors.py\par
 \cf1\ulnone\i0 def baskets(request):\line     user = request.user\line\f1            \f2 return  \{'baskets': Basket.objects.filter(user=user) if user.is_authenticated else []\}\par
 \cf3\ul\i store/settings.py\par
 \cf2\ulnone\i0 TEMPLATES = [\line     \{\line         'BACKEND': 'django.template.backends.django.DjangoTemplates'\b ,\line         \b0 'DIRS': []\b ,\line         \b0 'APP_DIRS': True\b ,\line         \b0 'OPTIONS': \{\line             'context_processors': [\line                 'django.template.context_processors.debug'\b ,\line                 \b0 'django.template.context_processors.request'\b ,\line                 \b0 'django.contrib.auth.context_processors.auth'\b ,\line                 \b0 'django.contrib.messages.context_processors.messages'\b ,\line\cf1\b0 'products.context_processors.baskets'\line\cf2             ]\b ,\line         \b0\}\b ,\line     \b0\}\b ,\line\b0 ]\par
@@ -31561,13 +31560,72 @@ class BasketAdmin(admin.TabularInline):\line     model = Basket\line     fields 
 
 \pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\qc\cf1\ul\fs40\'cc\'ee\'e4\'f3\'eb\'fc 8\par
 
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf0\ulnone\fs24 1. \'cf\'e5\'f0\'e5\'f5\'ee\'e4\'e8\'ec \'ed\'e0 \f1\lang1033 PostgreSQL\par
-\f0\fs40\lang1049\par
-\f2\fs24\lang1033\par
-\cf3\ul\i\par
-\cf10\ulnone\i0\lang1049\par
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf0\ulnone\fs24 1. \'cf\'e5\'f0\'e5\'f5\'ee\'e4\'e8\'ec \'ed\'e0 \f1\lang1033 PostgreSQL\f0\lang1049 . \'d3\'f1\'f2\'e0\'ed\'e0\'e2\'eb\'e8\'e2\'e0\'e5\'ec \f1\lang1033 POstgreSQL\par
+\cf1 pip install psycopg2\par
+\cf0 2. settings.py\par
+\f0\lang1049\'cf\'f0\'ee\'ef\'e8\'f1\'e0\'f2\'fc \'ed\'ee\'e2\'f3\'fe \'e1\'e0\'e7\'f3\f1\lang1033 :\par
 
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf0\lang1033\par
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\f2 DATABASES = \{\line     "default": \{\line         "ENGINE": "django.db.backends.postgresql_psycopg2"\b ,\line         \b0 "NAME": "store_db"\b ,\line         \b0 "USER": "postgres"\b ,\line         \b0 "PASSWORD": "zamax"\b ,\line         \b0 "HOST": "localhost"\b ,\line         \b0 "PORT": "5432"\b ,\line     \b0\}\line\}\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf0\f1 3. \cf1 python manage.py migrate\cf0\par
+4. \f0\lang1049\'e7\'e0\'ef\'f3\'f1\'f2\'e8\'f2\'fc \'f4\'e8\'ea\'f1\'f2\'f3\'f0\'fb\f1\lang1033\par
+5. \f0\lang1049\'c0\'e2\'f2\'ee\'f0\'e8\'e7\'e0\'f6\'e8\'ff \'f7\'e5\'f0\'e5\'e7 \'f1\'ee\'f6.\'f1\'e5\'f2\'e8. \'c1\'f3\'e4\'e5\'ec \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'f2\'fc \'e1\'e8\'e1\'eb\'e8\'ee\'f2\'e5\'ea\'f3 \f1\lang1033 Django-allauth. \f0\lang1049\'cd\'e0 \'eb\'ee\'ea\'e0\'eb\'fc\'e5\'ee\'ec \'f1\'e5\'f0\'e2\'e5\'f0\'e5 \'ec\'ee\'e6\'ed\'ee \'f1\'e4\'e5\'eb\'e0\'f2\'fc \'f2\'ee\'eb\'fc\'ea\'ee \'e0\'e2\'f2\'ee\'f0\'e8\'e7\'e0\'f6\'e8 \'fe \'f7\'e5\'f0\'e5\'e7 \f1\lang1033 github\f0\lang1049 , \'e2 \'ef\'f0\'ee\'e4\'e0\'ea\'f8\'e8\'ed\'e5 \'f7\'e5\'f0\'e5\'e7 \'eb\'fe\'e1\'fb\'e5 \'ee\'f1\'f2\'e0\'eb\'fc\'ed\'fb\'e5.\par
+\par
+{\cf3{\field{\*\fldinst{HYPERLINK https://django-allauth.readthedocs.io/en/latest/installation.html }}{\fldrslt{https://django-allauth.readthedocs.io/en/latest/installation.html\ul0\cf0}}}}\cf3\f0\fs24\par
+\cf0\f1\lang1033 6. \cf1 pip install django-allauth\par
+\cf0 7. \cf3\ul\i settings.py\cf0\ulnone\i0\par
+\cf2 TEMPLATES = [\par
+    \{\par
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',\par
+        'DIRS': [],\par
+        'APP_DIRS': True,\par
+        'OPTIONS': \{\par
+            'context_processors': [\par
+...\par
+\cf1                 'django.template.context_processors.request', \cf3 // \f0\lang1049\'e5\'f1\'eb\'e8 \'e5\'e3\'ee \'ed\'e5\'f2\f1\lang1033\par
+\cf2             ],\par
+        \},\par
+    \},\par
+]\par
+\cf1\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 AUTHENTICATION_BACKENDS = [\par
+\f1 ...\f2\line     'django.contrib.auth.backends.ModelBackend'\b ,\line\b0     \f1\tab\f2 'allauth.account.auth_backends.AuthenticationBackend'\b ,\par
+\f1 ...\f2\line    \line\b0 ]\par
+\par
+\cf2 INSTALLED_APPS = [\par
+\cf3\f1            // \f0\lang1049\'e5\'f1\'eb\'e8 \'e8\'f5 \'ed\'e5\'f2\f2\lang1033\par
+
+\pard\box\brdrdash\brdrw0 \li720\sa200\sl240\slmult1\cf1\f1  \f2 'django.contrib.auth'\b ,\line\b0 'django.contrib.messages'\b ,\line\b0 'django.contrib.sites'\b ,\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf2\b0\par
+\cf1  \f0\lang1049\tab\f2\lang1033 'allauth',\par
+    'allauth.account',\par
+    'allauth.socialaccount',\par
+\f0\lang1049\tab\f2\lang1033 'allauth.socialaccount.providers.github'\b\f1 ,\b0\f2\par
+\cf2\f1 ]\f2\par
+\cf1 SITE_ID = \b 1\par
+\b0 SOCIALACCOUNT_PROVIDERS = \{ \}\line\par
+\cf3\ul\i store/urls.py\par
+\cf2\ulnone\i0 urlpatterns = [\line     path('admin/'\b , \b0 admin.site.urls)\b ,\line     \b0 path(''\b , \b0 IndexView.as_view()\b , \b0 name='index')\b ,\line     \b0 path('products/'\b , \b0 include('products.urls'\b , \b0 namespace='products'))\b ,\line     \b0 path('user/'\b , \b0 include('users.urls'\b , \b0 namespace='users'))\b ,\line\cf1     \b0 path('accounts/'\b , \b0 include('allauth.urls'))\b ,\f1  \cf3 // \f0\lang1049\'e2\'f0\'e5\'ec\'e5\'ed\'ed\'ee\f2\lang1033\line\cf2\b0 ]\par
+\cf0\f0\lang1049 8. \cf1 python manage.py migrate\par
+\cf0 9. \'cd\'e0\'f1\'f2\'f0\'ee\'e9\'ea\'e8 \'ef\'f0\'ee\'e2\'e0\'e9\'e4\'e5\'f0\'e0\par
+{{\field{\*\fldinst{HYPERLINK https://django-allauth.readthedocs.io/en/latest/providers.html }}{\fldrslt{https://django-allauth.readthedocs.io/en/latest/providers.html\ul0\cf0}}}}\f0\fs24\par
+\cf3\ul\i store/settings.py\par
+\cf2\ulnone\i0\f2 SOCIALACCOUNT_PROVIDERS = \{\line\cf1     'github': \{\line         'SCOPE': [\line             'user'\b ,\par
+        \b0 ]\b ,\line     \b0\}\line\cf2\}\par
+\cf3\f0 10. \'d0\'e5\'e3\'e8\'f1\'f2\'f0\'e0\'f6\'e8\'ff \'ef\'f0\'e8\'eb\'ee\'e6\'e5\'ed\'e8\'ff \'ed\'e0 \f1\lang1033 github\f2\lang1049\par
+\ul\i\f0\par
+\cf1\ulnone\i0\par
+\cf0\f2\lang1033\par
+\cf2\par
+\cf3\ul\i\par
+\cf1\ulnone\b\i0\par
+\b0\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f1\par
+\cf10\f4\lang1049\par
+\cf0\f3\lang1033\par
 \cf1\b\par
 \cf3\ul\b0\i\par
 \par

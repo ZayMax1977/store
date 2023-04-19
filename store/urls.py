@@ -23,10 +23,9 @@ from products.views import IndexView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
-
-    # path('', index, name='index'),
     path('products/', include('products.urls', namespace='products')),
     path('user/', include('users.urls', namespace='users')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 
