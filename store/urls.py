@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 
 from products.views import IndexView
+from users.views import UserUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +28,7 @@ urlpatterns = [
     path('products/', include('products.urls', namespace='products')),
     path('user/', include('users.urls', namespace='users')),
     path('accounts/', include('allauth.urls')),
+
 ]
 
 

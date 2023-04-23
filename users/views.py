@@ -25,7 +25,7 @@ class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     form_class = UserRegistrationForm
     success_url = reverse_lazy('users:login')
     title = 'Store - Регистрация'
-    success_message = 'Поздравляем! Вы успешно зарегестрировались.'
+    success_message = 'Поздравляем! Вы успешно зарегистрировались.'
 
 
 class UserUpdateView(TitleMixin, UpdateView):

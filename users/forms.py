@@ -32,7 +32,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'gender', 'age', 'phoneNumber', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'username', 'email', 'age','gender', 'phoneNumber', 'password1', 'password2')
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=True)
@@ -54,4 +54,4 @@ class UserProfileForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'image', 'gender', 'age', 'phoneNumber',)
+        fields = ('first_name', 'last_name', 'username',"age",'gender','email', 'image',  'phoneNumber',)
