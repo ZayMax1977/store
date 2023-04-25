@@ -1,4 +1,5 @@
 ### Python template
+/store_cache
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -43,7 +44,7 @@ htmlcov/
 .nox/
 .coverage
 .coverage.*
-store_cache/
+
 nosetests.xml
 coverage.xml
 *.cover
