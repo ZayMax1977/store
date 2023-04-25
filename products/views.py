@@ -28,6 +28,7 @@ class ProductsListView(TitleMixin, ListView):
         return context
 
 
+
 @login_required
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -42,6 +43,7 @@ def basket_add(request, product_id):
         basket.save()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 
 @login_required

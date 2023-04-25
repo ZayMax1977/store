@@ -1,6 +1,7 @@
 {% extends 'products/base.html' %}
 {% load static %}
 
+
 {% block css %}
  <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
 {% endblock %}
@@ -14,9 +15,15 @@
 
             <h1 class="my-4">Store</h1>
             <div class="list-group">
-                {% for c in category %}
-                    <a href="{% url 'products:category' c.id %}" class="list-group-item">{{ c.name }}</a>
-                {% endfor %}
+
+{% load cache %}
+{% cache 500 category  %}
+    {% for c in category %}
+                <a href="{% url 'products:category' c.id %}" class="list-group-item">{{ c.name }}</a>
+     {% endfor %}
+{% endcache %}
+
+
             </div>
 
         </div>
@@ -52,6 +59,7 @@
             </div>
 
             <div class="row">
+{% cache 500 list %}
 
                 {% for p in object_list %}
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -75,6 +83,9 @@
                     </div>
                 </div>
                 {% endfor %}
+{% endcache %}
+
+
             </div>
             {% if is_paginated %}
             <nav aria-label="Page navigation example">
