@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
 
     'products',
-    'users'
+    'users',
+    'orders'
 
 ]
 
@@ -167,7 +168,7 @@ EMAIL_USE_TLS = True
 SERVER_EMAIL = 'maxim.zanchenko@yandex.ru'
 
 # OAuth
-
+LOGIN_REDIRECT_URL = '/products'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -193,3 +194,7 @@ CACHES = {
         'LOCATION': os.path.join(BASE_DIR, 'store_cache')
     }
 }
+
+# Celery
+CELERY_BROKER_URL = "redis://127.0.0.1:6379"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379"

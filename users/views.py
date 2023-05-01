@@ -49,7 +49,7 @@ class EmailVerificationView(TitleMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         code = kwargs['code']
-        user = User.objects.get(email=kwargs['email']).select_related('user')
+        user = User.objects.get(email=kwargs['email'])
         email_verification = EmailVerification.objects.filter(user=user, code=code)
         if email_verification.exists() and not email_verification.first().is_expired():
             user.is_verified_email = True

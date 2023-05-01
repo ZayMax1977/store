@@ -1,5 +1,5 @@
 ### Python template
-/store_cache
+store_cache/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
