@@ -1,6 +1,10 @@
-<% extends 'products/base.html' %>
+{% extends 'products/base.html' %}
+{% load static %}
 
-<% block content %>
+{% block css %}
+ <link href='{% static "vendor/css/orders.css" %} rel="stylesheet"'/>
+{% endblock %}
+
 <section>
     <div class="container pt-5">
         <div class="text-center mt-5">
@@ -48,5 +52,5 @@
     </div>
 </section>
 
-<% endblock %>
+{% endblock %}
 

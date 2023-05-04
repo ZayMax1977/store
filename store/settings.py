@@ -93,9 +93,9 @@ WSGI_APPLICATION = 'store.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "store_db",
+        "NAME": "store_db_store",
         "USER": "postgres",
-        "PASSWORD": "zamax",
+        "PASSWORD": "1977",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -168,7 +168,8 @@ EMAIL_USE_TLS = True
 SERVER_EMAIL = 'maxim.zanchenko@yandex.ru'
 
 # OAuth
-LOGIN_REDIRECT_URL = '/products'
+LOGIN_REDIRECT_URL = '/products' # return from git by registration
+LOGOUT_REDIRECT_URL = '/products'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',

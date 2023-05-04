@@ -1,6 +1,11 @@
-<% extends 'products/base.html' %>
+{% extends 'products/base.html' %}
+{% load static %}
 
-<% block content %>
+{% block css %}
+ <link href='{% static "vendor/css/orders.css" %} rel="stylesheet"'/>
+{% endblock %}
+
+{% block content %}
 <section>
     <div class="alert alert-warning text-center" role="alert">
         Пожалуйста, заполните адрес электронной почты.
@@ -80,4 +85,4 @@
     </div>
 </section>
 
-<% endblock %>
+{% endblock %}
