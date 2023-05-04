@@ -23,4 +23,4 @@ class Order(models.Model):
     status = models.SmallIntegerField(default=CREATED,choices=STATUSES)
 
     def __str__(self):
-        return  f'Order ?{self.id}. {self.first_name} {self.last_name}'
+        return  f'Order №{self.id}. {self.first_name} {self.last_name}'

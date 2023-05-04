@@ -1,6 +1,6 @@
 {% extends 'products/base.html' %}
 {% load static %}
-
+{% load humanize %}
 
 {% block css %}
  <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
@@ -73,7 +73,7 @@
                             <h4 class="card-title">
                                 <a href="#">{{ p.name }}</a>
                             </h4>
-                            <h5>{{ p.price }} руб.</h5>
+                            <h5>{{ p.price|intcomma }} руб.</h5>
                             <p class="card-text">{{ p.description }}</p>
                         </div>
                         <div class="card-footer text-center">
