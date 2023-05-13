@@ -1,5 +1,5 @@
-{\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1049{\fonttbl{\f0\fnil\fcharset204 Calibri;}{\f1\fnil\fcharset0 Calibri;}{\f2\fmodern JetBrains Mono;}{\f3\fmodern\fcharset0 JetBrains Mono;}{\f4\fmodern\fcharset204 JetBrains Mono;}{\f5\fnil\fcharset1 Segoe UI Symbol;}}
-{\colortbl ;\red255\green0\blue0;\red0\green77\blue187;\red165\green165\blue165;\red255\green192\blue0;\red102\green102\blue102;\red255\green255\blue255;\red235\green235\blue235;\red255\green207\blue64;\red237\green134\blue74;\red84\green179\blue62;\red204\green204\blue204;\red0\green0\blue255;}
+{\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1049{\fonttbl{\f0\fnil\fcharset204 Calibri;}{\f1\fnil\fcharset0 Calibri;}{\f2\fmodern JetBrains Mono;}{\f3\fmodern\fcharset0 JetBrains Mono;}{\f4\fmodern\fcharset204 JetBrains Mono;}{\f5\fnil\fcharset1 Segoe UI Symbol;}{\f6\fnil\fcharset0 Segoe UI Symbol;}}
+{\colortbl ;\red255\green0\blue0;\red0\green77\blue187;\red165\green165\blue165;\red255\green192\blue0;\red102\green102\blue102;\red255\green255\blue255;\red235\green235\blue235;\red255\green207\blue64;\red237\green134\blue74;\red84\green179\blue62;\red204\green204\blue204;\red0\green0\blue255;\red51\green51\blue51;\red0\green0\blue0;}
 {\*\generator Riched20 10.0.18362}\viewkind4\uc1 
 \pard\sa200\sl276\slmult1\qc\cf1\ul\f0\fs36\'cc\'ee\'e4\'f3\'eb\'fc 1\par
 
@@ -31762,61 +31762,119 @@ CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379"\par
 \cf1\ulnone\i0\f2 from django import forms\line from orders.models import Order\line\line\line class OrderForm(forms.ModelForm):\line     class Meta:\line         model = Order\line         fields = ('first_name'\b ,\b0 'last_name'\b ,\b0 'address'\b ,\b0 'email')\par
 \cf0\f1 13. \f0\lang1049\'cf\'c5\'f0\'e5\'ed\'e5\'f1\'e5\'ec \'ea\'eb\'e0\'f1\'f1\'fb \'e8\'e7 \'f8\'e0\'e1\'eb\'ee\'ed\'e0\f1\lang1033  \ul\i order-create.html\ulnone\i0\f0\lang1049  \'e2 \f1\lang1033 forms.py\par
 \cf3\ul\i orders/forms.py\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf2\ulnone\i0\f2 class OrderForm(forms.ModelForm):\line\cf1     first_name = forms.CharField(widget=forms.TextInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': '\f0\lang1049\'c8\'e2\'e0\'ed\f2\lang1033 '\}))\line     last_name = forms.CharField(widget=forms.TextInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': '\f0\lang1049\'c8\'e2\'e0\'ed\'ee\'e2\f2\lang1033 '\}))\line     email = forms.EmailField(widget=forms.EmailInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': 'you@example.com'\}))\line     address = forms.CharField(widget=forms.TextInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': '\f0\lang1049\'d0\'ee\'f1\'f1\'e8\'ff\f2\lang1033 , \f0\lang1049\'cc\'ee\'f1\'ea\'e2\'e0\f2\lang1033 , \f0\lang1049\'f3\'eb\f2\lang1033 . \f0\lang1049\'cc\'e8\'f0\'e0\f2\lang1033 , \f0\lang1049\'e4\'ee\'ec\f2\lang1033  6'\}))\line\cf2\line     class Meta:\line         model = Order\line         fields = ('first_name'\b ,\b0 'last_name'\b ,\b0 'address'\b ,\b0 'email')\par
+\cf2\ulnone\i0\f2 class OrderForm(forms.ModelForm):\line\cf1     first_name = forms.CharField(widget=forms.TextInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': '\f0\lang1049\'c8\'e2\'e0\'ed\f2\lang1033 '\}))\line     last_name = forms.CharField(widget=forms.TextInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': '\f0\lang1049\'c8\'e2\'e0\'ed\'ee\'e2\f2\lang1033 '\}))\line     email = forms.EmailField(widget=forms.EmailInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': 'you@example.com'\}))\line     address = forms.CharField(widget=forms.TextInput(attrs=\{'class': 'form-control'\b ,\b0 'placeholder': '\f0\lang1049\'d0\'ee\'f1\'f1\'e8\'ff\f2\lang1033 , \f0\lang1049\'cc\'ee\'f1\'ea\'e2\'e0\f2\lang1033 , \f0\lang1049\'f3\'eb\f2\lang1033 . \f0\lang1049\'cc\'e8\'f0\'e0\f2\lang1033 , \f0\lang1049\'e4\'ee\'ec\f2\lang1033  6'\}))\line\cf2\line     class Meta:\line         model = Order\line         fields = ('first_name'\b ,\b0 'last_name'\b ,\b0 'address'\b ,\b0 'email')\par
 \cf3\ul\i orders/views.py\par
 \cf2\ulnone\i0 class OrderCreateView(CreateView):\line     template_name = 'orders/order-create.html'\line     form_class = OrderForm\line\cf1     success_url = reverse_lazy('orders:order_create')\par
 \f0\lang1049           \f2\lang1033 title = 'Store - \f0\lang1049\'ce\'f4\'ee\'f0\'ec\'eb\'e5\'ed\'e8\'e5\f2\lang1033  \f0\lang1049\'e7\'e0\'ea\'e0\'e7\'e0\f2\lang1033 '\line\cf10\par
 \cf1\par
-\cf3\ul\i orders/templates/orders/order-create.html\par
+\cf0\f1 14. \cf3\ul\i\f2 orders/templates/orders/order-create.html\par
 \cf2\ulnone\i0\f1 ...\par
 \f2 <form \cf1 action="\{% url 'orders:order_create' %\}" method="post"\cf2 >\line\cf1     \{% csrf_token %\}\line\cf2     <div class="row g-3">\line         <div class="col-sm-6">\line             <label for="\cf1\{\{ form.first_name.id_for_label \}\}\cf2 " class="form-label">\f0\lang1049\'c8\'ec\'ff\f2\lang1033 </label>\line\cf1             \{\{ form.first_name \}\}\line\cf2         </div>\line\line         <div class="col-sm-6">\line             <label for="\cf1\{\{ form.last_name.id_for_label \}\}\cf2 " class="form-label">\f0\lang1049\'d4\'e0\'ec\'e8\'eb\'e8\'ff\f2\lang1033 </label>\line\cf1             \{\{ form.last_name \}\}\line\cf2         </div>\line\line         <div class="col-12 mt-3">\line             <label for="\cf1\{\{ form.email.id_for_label \}\}\cf2 " class="form-label">\f0\lang1049\'c0\'e4\'f0\'e5\'f1\f2\lang1033  \f0\lang1049\'fd\'eb\'e5\'ea\'f2\'f0\'ee\'ed\'ed\'ee\'e9\f2\lang1033  \f0\lang1049\'ef\'ee\'f7\'f2\'fb\f2\lang1033 </label>\line\cf1             \{\{ form.email \}\}\line\cf2         </div>\line\line         <div class="col-12 mt-3">\line             <label for="\cf1\{\{ form.address.id_for_label \}\}\cf2 " class="form-label">\f0\lang1049\'c0\'e4\'f0\'e5\'f1\f2\lang1033 </label>\line\cf1             \{\{ form.address \}\}\line\cf2         </div>\line\line     </div>\line\line     <hr class="my-4">\line\line     <button class="w-100 btn btn-primary btn-lg" type="submit">\f0\lang1049\'cf\'f0\'ee\'e4\'ee\'eb\'e6\'e8\'f2\'fc\f2\lang1033 </button>\line </form>\par
 \f1 ...\f2\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ul\i\f1 orders/admin.py\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\ulnone\i0\f2 @admin.register(Order)\line class OrderAdmin(admin.ModelAdmin):\line     list_display = ('__str__'\b ,\b0 'status')\line     fields = ('id'\b ,\line               \b0 ('first_name'\b ,\b0 'last_name')\b ,\line               \b0 ('email'\b ,\b0 'address')\b ,\line               \b0 'basket_history'\b ,\b0 'status'\b ,\b0 'initiator'\line               )\line     readonly_fields = ('id'\b ,\b0 'created')\par
+\cf0\f1 15. \cf3\ul\i orders/admin.py\par
+\cf1\ulnone\i0\f2 @admin.register(Order)\line class OrderAdmin(admin.ModelAdmin):\line     list_display = ('__str__'\b ,\b0 'status')\line     fields = ('id'\b ,\line               \b0 ('first_name'\b ,\b0 'last_name')\b ,\line               \b0 ('email'\b ,\b0 'address')\b ,\line               \b0 'basket_history'\b ,\b0 'status'\b ,\b0 'initiator'\line               )\line     readonly_fields = ('id'\b ,\b0 'created')\par
 \cf3\ul\i\f1 settings.py\par
 \ulnone\i0 # \f0\lang1049\'f7\'f2\'ee \'e1\'fb \'ea\'f0\'e0\'f1\'f2\'e2\'ee \'f6\'e5\'ed\'fb \'ee\'f2\'f0\'e0\'e6\'e0\'eb\'e8\'f1\'fc\f1\lang1033\par
 \cf2\f2 INSTALLED_APPS = [\line\f1 ...\par
 \cf1\f2 'django.contrib.humanize'\b ,\b0\f1\par
 \cf2 ...\f2\line ]\par
 \cf1\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ul\i\f1 orders/templates/orders/order-create.html\par
+\cf0\f1 16. \cf3\ul\i orders/templates/orders/order-create.html\par
 \cf2\ulnone\i0\f0\lang1049 ...\f1\lang1033\par
 \cf1\f2\lang1049\{% load humanize %\}\cf3\ul\i\f1\lang1033\par
 \cf2\ulnone\i0 ...\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 <div class="col-md-5 col-lg-4 order-md-last">\line     <h4 class="d-flex justify-content-between align-items-center mb-3">\line         <span class="text-primary">\f0\lang1049\'ca\'ee\'f0\'e7\'e8\'ed\'e0\f2\lang1033 </span>\line         <span class="badge badge-primary badge-pill text-white">\cf1\{\{ baskets.total_quantity \}\}\cf2 </span>\line     </h4>\line     <ul class="list-group mb-3">\line\cf1         \{% for basket in baskets %\}\line\cf2         <li class="list-group-item d-flex justify-content-between lh-sm">\line             <div>\line                 <h6 class="my-0">\cf1\{\{ basket.product.name \}\}\cf2 </h6>\line                 <small class="text-muted">\cf1\{\{ basket.quantity \}\}\cf2  \f0\lang1049\'f8\'f2\f2\lang1033 .</small>\line             </div>\line             <span class="text-muted">\cf1\{\{ basket.sum|intcomma\cf7\par
+\f2 <div class="col-md-5 col-lg-4 order-md-last">\line     <h4 class="d-flex justify-content-between align-items-center mb-3">\line         <span class="text-primary">\f0\lang1049\'ca\'ee\'f0\'e7\'e8\'ed\'e0\f2\lang1033 </span>\line         <span class="badge badge-primary badge-pill text-white">\cf1\{\{ baskets.total_quantity \}\}\cf2 </span>\line     </h4>\line     <ul class="list-group mb-3">\line\cf1         \{% for basket in baskets %\}\line\cf2         <li class="list-group-item d-flex justify-content-between lh-sm">\line             <div>\line                 <h6 class="my-0">\cf1\{\{ basket.product.name \}\}\cf2 </h6>\line                 <small class="text-muted">\cf1\{\{ basket.quantity \}\}\cf2  \f0\lang1049\'f8\'f2\f2\lang1033 .</small>\line             </div>\line             <span class="text-muted">\cf1\{\{ basket.sum|intcomma\cf7\par
 \cf1  \}\}\cf2  \f0\lang1049\'f0\'f3\'e1\f2\lang1033 .</span>\line         </li>\line\cf1         \{% endfor %\}\line\cf2\line         <li class="list-group-item d-flex justify-content-between">\line             <span>\f0\lang1049\'d1\'f3\'ec\'ec\'e0\f2\lang1033  \f0\lang1049\'ea\f2\lang1033  \f0\lang1049\'ee\'ef\'eb\'e0\'f2\'e5\f2\lang1033 </span>\line             <strong>\cf1\{\{ baskets.total_sum|intcomma\cf7\par
 \cf1  \}\}\cf2  \f0\lang1049\'f0\'f3\'e1\f2\lang1033 .</strong>\line         </li>\line     </ul>\line </div>\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f1 ....\par
-\cf3\ul\i\f2 products/templates/products/products.html\par
+\f1 ....\par
+\cf0 17. \cf3\ul\i\f2 products/templates/products/products.html\par
 \cf2\ulnone\i0\f0\lang1049 ...\par
+\cf1\f2\{% load humanize %\}\cf3\ul\i\f0\par
+\cf2\ulnone\i0 ...\par
+\f2 <h5>\{\{ p.price\cf1 |intcomma \cf2\}\} \f0\'f0\'f3\'e1\f2 .</h5>\ul\i\f0\par
+\cf3\ulnone\i0 ...\f2\lang1033\par
+\cf0\f1 18. \cf3\ul\i\f2 products/templates/products/basket.html\par
+\cf1\ulnone\i0\f4\lang1049\{% load humanize %\}\cf2\f0\par
+...\par
+\f2 <div class="col-lg-4">\{\{ basket.sum\cf1 |intcomma \cf2\}\} \f0\'f0\'f3\'e1\f2 .</div>\f0\par
+...\par
+\f2 <h4 class="float-right">\{\{ baskets.total_sum\cf1 |intcomma\cf2  \}\} \f0\'f0\'f3\'e1\f2 .</h4>\f0\par
+...\f2\lang1033\par
+\cf0\f1 19. \f0\lang1049\'cf\'ee\'e4\'ea\'eb\'fe\'f7\'e0\'e5\'ec \'ef\'ef\'eb\'e0\'f2\'e5\'e6\'ed\'f3\'fe \'f1\'e8\'f1\'f2\'e5\'ec\'f3 \'f7\'e5\'f0\'e5\'e7 \f1\lang1033 stripe:\par
+{\f0\lang1049{\field{\*\fldinst{HYPERLINK https://stripe.com/ }}{\fldrslt{https://stripe.com/\ul0\cf0}}}}\f0\fs24\lang1049 , \'f0\'e5\'e3\'e8\'f1\'f2\'f0\'e8\'f0\'f3\'e5\'ec\'f1\'ff\f1\lang1033 . \f0\lang1049\'c7\'f5\'ee\'e4\'e8\'ec \'e2\'ee \'e2\'ea\'eb\'e0\'e4\'ea\'f3 \f1\lang1033 Developers.\f0\lang1049  \'c4\'e0\'eb\'e5\'e5 \f1\lang1033 Api keys. \f0\lang1049\'d2\'e0\'ec \'ea\'eb\'fe\'f7\'e8, \'f1 \'ed\'e8\'ec\'e8 \'e4\'f3\'e4\'e5\'ec \'f0\'e0\'e1\'ee\'f2\'e0\'f2\'fc.\par
+20. \cf3\ul\i\f1\lang1033 settings.py\par
+\cf0\ulnone\i0\f0\lang1049\'e1\'e5\'f0\'e5\'ec \'e2\'ee \'e2\'ea\'eb\'e0\'e4\'ea\'e5 \f1\lang1033 API keys\par
+\cf1\f2 STRIPE_PUBLIC_KEY = 'pk_test_51N4OnhCtFZyAUk5ylPdfNBvZ9BuMsjWIFfgWNLDsuLHtsjfHOLPdy7OKsDCqqjVy9ZKgunGggOc9POKUhINc3JRi00U8Qy2rRJ'\par
+\line STRIPE_SECRET_KEY = 'sk_test_51N4OnhCtFZyAUk5yHNq8EYyLjyRxu8qiSxiLpLovEjS6W9M8SFiq8WauF1zCJIEsmFY3eLoyjahgLJMqlBs9k4h900AdSnl2nI'\par
+\cf0\f1 21.\cf3\ul\i  {\cf0\ulnone\f0\lang1049{\field{\*\fldinst{HYPERLINK https://stripe.com/docs }}{\fldrslt{https://stripe.com/docs\ul0\cf0}}}}\f0\fs24\lang1049\par
+\cf0\ulnone\i0\'ca\'ed\'ee\'ef\'ea\'e0 \f1\lang1033 Get starting\par
+\f0\lang1049\'c2\'ea\'eb\'e0\'e4\'ea\'e0 \f1\lang1033 Online (\f0\lang1049\'e2 \'e3\'eb\'e0\'e2\'ed\'ee\'ec \'ee\'ea\'ed\'e5)\par
+\'c2\'ea\'eb\'e0\'e4\'ea\'e0 Accept online payments\par
+\'c2\'fb\'e1\'e8\'f0\'e0\'e5\'ec \'f7\'f2\'ee \'ed\'e0 \'f4\'f0\'ee\'ed\'f2\'e5 \'e8 \'f7\'f2\'ee \'ed\'e0 \'e1\'fd\'ea\'e5\f1\lang1033 : html \f0\lang1049\'e8 \f1\lang1033 python\par
+\f0\lang1049\'c2\'ea\'eb\'e0\'e4\'ea\'e0 Prebuilt checkout page ( \'fd\'f2\'ee \'f1\'f2\'e0\'ed\'e4\'e0\'f0\'f2\'ed\'e0\'ff \'ee\'ef\'eb\'e0\'f2\'e0 \'ee\'ed\'e0 \'f3\'f1\'f2\'f0\'ee\'e8\'f2 \'ed\'e0\'f1)\par
+\'d7\'e8\'f2\'e0\'e5\'ec \'ed\'e8\'e6\'e5 \'ea\'ed\'ee\'ef\'ea\'e8 \'ef\'f0\'ee\'f6\'e5\'f1\'f1 \'f3\'f1\'f2\'e0\'ed\'ee\'e2\'ea\'e8\f1\lang1033 :\f0\lang1049\par
+22\f1\lang1033 . \cf1 pip3 install stripe\par
+\cf0\f0\lang1049 22.1 \f1\lang1033 Create a checkout session -\f0\lang1049  \'f1\'ee\'e7\'e4\'e0\'ed\'e8\'e5 \'f1\'e5\'f1\'f1\'e8\'e8 \'ef\'f0\'e8 \'ed\'e0\'e6\'e0\'f2\'e8\'e8 \'ed\'e0 \'ea\'ed\'ee\'ef\'ea\'f3 \'ee\'ef\'eb\'e0\'f2\'e8\'f2\'fc \'ef\'e5\'f0\'e5\'ed\'e0\'ef\'f0\'e0\'e2\'eb\'e5\'ed\'e8\'e5 \'ed\'e0 \'f1\'e0\'e9\'f2 \'ee\'ef\'eb\'e0\'f2\'fb,\f1\lang1033  \f0\lang1049\'f1\'ef\'f0\'e0\'e2\'e0 \'ef\'ee\'e4\'f1\'e2\'e5\'f7\'e8\'e2\'e0\'e5\'f2\'f1\'ff \'ea\'ee\'e4 \'ea\'ee\'f2\'ee\'f0\'fb\'e9 \'ed\'e0\'e4\'ee \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'f2\'fc \f1\lang1033\par
+23. \cf13\ul\i\f0\lang1049 orders/views.py\par
+\cf1\ulnone\i0\f2 import stripe\par
+\cf2\f0 ...\par
+\cf5\f6\lang1033 # \f0\lang1049\'e1\'e5\'f0\'e5\'f2\'f1\'ff \'e8\'e7 \f1\lang1033 settings.py\cf2\f2\lang1049\par
+\cf1\f3\lang1033 stripe.api_key = settings.STRIPE_SECRET_KEY\f0\lang1049  \par
+\cf2 ...\par
+\cf0\f1\lang1033 24.  {{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/checkout/quickstart }}{\fldrslt{https://stripe.com/docs/checkout/quickstart\ul0\cf0}}}}\f1\fs24\par
+\f0\lang1049\'d1\'ee\'e7\'e4\'e0\'e4\'e8\'ec \'f2\'e5\'f1\'f2\'ee\'e2\'fb\'e9 \'ef\'f0\'ee\'e4\'f3\'ea\'f2, \'f1\'e5\'e9\'f7\'e0\'f1 \'e1\'e0\'e7\'f3 \'ef\'f0\'ee\'e4\'ea\'f2\'ee\'e2 \'f0\'e5\'ea\'ee\'ec\'e5\'ed\'e4\'f3\'e5\'f2\'f1\'ff \'f5\'f0\'e0\'ed\'e8\'f2\'fc \'ed\'e0 \'f1\'e0\'e9\'f2\'e5 \'f3 \f1\lang1033 stripe\f0\lang1049 , \'ef\'ee\'ea\'e0 \'ed\'e5 \'e4\'e5\'eb\'e0\'e5\'ec \'f2\'e0\'ea. \'cf\'f0\'ee\'f1\'f2\'ee \'f1\'ee\'e7\'e4\'e0\'e4\'e8\'ec \'f2\'e5\'f1\'f2\'ee\'e2\'fb\'e9 \'ef\'f0\'ee\'e4\'f3\'ea\'f2.\f1\lang1033\par
+\f0\lang1049\'e2\'ea\'eb\'e0\'e4\'ea\'e0 Define a product to sell -\f1\lang1033 > one-time -> \f0\lang1049\'e2\'e2\'e5\'f1\'f2\'e8 \'e8\'ec\'ff \'ef\'f0\'ee\'e4\'f3\'ea\'f2\'e0 -\f1\lang1033 > \f0\lang1049\'f6\'e5\'ed\'f3 -\f1\lang1033 > \f0\lang1049\'e2\'e0\'eb\'fe\'f2\'e0 -\f1\lang1033 > create test product\par
+\f0\lang1049\'e2 \'ea\'ee\'e4\'e5 \'ed\'e0 \'f1\'e0\'e9\'f2\'e5 \f1\lang1033 stripe \f0\lang1049\'ea\'ee\'e4 \'e4\'e8\'ed\'e0\'ec\'e8\'f7\'e5\'f1\'ea\'e8 \'ec\'e5\'ed\'ff\'e5\'f2\'f1\'ff \'ef\'ee \'ec\'e5\'f0\'e5 \'ef\'f0\'ee\'e4\'e2\'e8\'e6\'e5\'ed\'e8\'ff \'ef\'ee \'fd\'f2\'e0\'ef\'e0\'ec \'f3\'f1\'f2\'e0\'ed\'ee\'e2\'ea\'e8.\par
+\f1\lang1033 25. \f0\lang1049\'d1\'ee\'e7\'e4\'e0\'f2\'fc \'f4\'e0\'e9\'eb \'ee\'f2\'f0\'e8\'f1\'ee\'e2\'ea\'e8 \'ef\'f0\'e8 \'ee\'f2\'ec\'e5\'ed\'e5 \'e7\'e0\'ea\'e0\'e7\'e0\f1\lang1033 :\par
+\cf3\ul\i orders/templates/orders/canceled.html\par
+\cf14\ulnone\i0\f0\lang1049\'c2\'ee\'e7\'fc\'ec\'e5\'ec \'ea\'ee\'e4 \'e4\'eb\'ff \'fd\'f2\'ee\'e3\'ee \'f4\'e0\'e9\'eb\'e0 \'e8\'e7 {\cf0{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/checkout/quickstart }}{\fldrslt{https://stripe.com/docs/checkout/quickstart\ul0\cf0}}}}\f0\fs24 , \'f2\'e0\'ec \'e3\'e4\'e5 \'ea\'ee\'e4 \'ed\'e0\'e9\'f2\'e8 \'e2\'ea\'eb\'e0\'e4\'ea\'f3 \f1\lang1033 cancel.html \f0\lang1049\'c8 \'e2\'e7\'ff\'f2\'fc \'ea\'ee\'e4 \'f2\'e0\'ec, \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'e2 \'f1\'e2\'ee\'e8 \'f1\'f2\'e8\'eb\'e8. \'c0 \'ec\'ee\'e6\'e5\'ec \'e8 \'ef\'ee\'eb\'ed\'ee\'f1\'f2\'fc \'f1\'e0\'ec\'e8 \'f1\'f2\'f0\'e0\'ed\'e8\'f6\'f3 \'ef\'ee\'ef\'e8\'f1\'e0\'f2\'fc \'f1\'e0\'ec\'e8.\par
+\f1\lang1033 26. \f0\lang1049\'cf\'f0\'ee\'ef\'e8\'f8\'e8\'ec \'ef\'f3\'f2\'e8 \'ea \'f4\'e0\'e9\'eb\'e0\'ec \'f3\'e4\'e0\'f7\'ed\'ee\'e9 \'ee\'ef\'eb\'e0\'f2\'fb \'e8 \'ee\'f2\'ec\'e5\'ed\'fb\f1\lang1033 :\par
+\cf3\ul\i orders/urls.py\par
+\cf2\ulnone\i0 ...\par
+\cf1\f2 path('order-success/'\b , \b0 SuccessTemplateView.as_view()\b , \b0 name='order_success')\b ,\line\b0 path('order-canceled/'\b , \b0 CanceledTemplateView.as_view()\b , \b0 name='order_canceled')\b ,\cf2\par
+\b0\i\f1 ...\par
+\cf0\i0\f0\lang1049 27. \cf3\ul\i orders/views.py\par
+\cf2\ulnone\i0\f1\lang1033 ...\f0\lang1049\par
+\cf1\f2 class SuccessTemplateView(TitleMixin\b , \b0 TemplateView):\line     template_name = 'orders/success.html'\line     title = 'Store - \f0\'d1\'ef\'e0\'f1\'e8\'e1\'ee\f2  \f0\'e7\'e0\f2  \f0\'e7\'e0\'ea\'e0\'e7\f2 !'\line\line class CanceledTemplateView(TemplateView):\line     template_name = 'orders/canceled.html'\line     title = 'Store - \f0\'c7\'e0\'ea\'e0\'e7\f2  \f0\'ee\'f2\'ec\'e5\'ed\'e5\'ed\f2 !'\line\line\cf3\f6\lang1033 # \f0\lang1049\'ea\'ee\'e4 \'e1\'e5\'f0\'e5\'f2\'f1\'ff \'e8\'e7 {\cf0{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/checkout/quickstart }}{\fldrslt{https://stripe.com/docs/checkout/quickstart\ul0\cf0}}}}\f0\fs24  \'e2\'ea\'eb\'e0\'e4\'ea\'e0 \f1\lang1033 server \f0\lang1049\'e3\'e4\'e5 \'ea\'ee\'e4 \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'ed\f2\line\cf1 class OrderCreateView(TitleMixin\b ,\b0 CreateView):\line     template_name = 'orders/order-create.html'\line     form_class = OrderForm\line     success_url = reverse_lazy('orders:order_create')\line     title = 'Store - \f0\'ce\'f4\'ee\'f0\'ec\'eb\'e5\'ed\'e8\'e5\f2  \f0\'e7\'e0\'ea\'e0\'e7\'e0\f2 '\line\line     def post(self\b , \b0 request\b , \b0 *args\b , \b0 **kwargs):\line         super(OrderCreateView\b , \b0 self).post(request\b , \b0 *args\b , \b0 **kwargs)\line         checkout_session = stripe.checkout.Session.create(\line             line_items=[\line                 \{\line                     'price': 'price_1N6wbvCtFZyAUk5yLLPiMVYI'\b ,\line                     \b0 'quantity': \b 1,\line                 \b0\}\b ,\line             \b0 ]\b ,\line             \b0 mode='payment'\b ,\line             \b0 success_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_success'))\b ,\line             \b0 cancel_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_canceled'))\b ,\line         \b0 )\line         return  HttpResponseRedirect(checkout_session.url\b ,\b0 status = HTTPStatus.SEE_OTHER)\cf3\f1\lang1033 # \f0\lang1049\'f0\'e5\'e4\'e8\'f0\'e5\'ea\'f2 \'ef\'ee\'f1\'eb\'e5 \'ee\'ef\'eb\'e0\'f2\'fb\cf1\f2\par
+\cf2\f1\lang1033 ...\par
+\cf0\f0\lang1049 28. \'cf\'f0\'ee\'e2\'e5\'f0\'e8\'ec \'ef\'f0\'ee\'f5\'ee\'e4\'e8\'f2 \'eb\'e8 \'ee\'ef\'eb\'e0\'f2\'e0 \'ef\'ee \'f2\'ee\'e2\'e0\'f0\'f3 \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'ed\'ed\'ee\'ec\'f3 \'e2 \'ef\'f3\'ed\'ea\'e5 24, \'fd\'f2\'ee \'e7\'e0\'f5\'e0\'f0\'e4\'ea\'ee\'f0\'e6\'e5\'ed\'ed\'fb\'e5 \'ed\'e0\'ec\'e8 \'e4\'e0\'ed\'ed\'fb\'e5 \'ee \'f2\'ee\'e2\'e0\'f0\'e5. \par
+{{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/checkout/quickstart }}{\fldrslt{https://stripe.com/docs/checkout/quickstart\ul0\cf0}}}}\f0\fs24  \'e2\'ee \'e2\'ea\'eb\'e0\'e4\'ea\'e5 \f1\lang1033 try it out \f0\lang1049\'e5\'f1\'f2\'fc \'e4\'e0\'ed\'ed\'fb\'e5 \'f2\'e5\'f1\'f2\'ee\'e2\'fb\'f5 \'ea\'e0\'f0\'f2 \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'f3\'e5\'ec \'e8\'f5.\par
+Payment succeeds  (\'e4\'eb\'ff \'ee\'ef\'eb\'e0\'f2\'fb)\par
+Payment requires authentication(\'ef\'ee \'e8\'e4\'e5\'ed\'f2\'e8\'f4\'e8\'ea\'e0\'f6\'e8\'e8)\par
+Payment is declined(\'ef\'ee \'ee\'f2\'ec\'e5\'ed\'e5)\par
+29. \'c4\'e5\'eb\'e0\'e5\'ec \'e7\'e0\'ea\'e0\'e7 \'ed\'e0 \'ed\'e0\'f8\'e5\'ec \'f1\'e0\'e9\'f2\'e5, \'ed\'e0\'e6\'e8\'ec\'e0\'e5\'ec \'ee\'ef\'eb\'e0\'f2\'e8\'f2\'fc, \'ec\'fb \'e4\'ee\'eb\'e6\'ed\'fb \'ef\'e5\'f0\'e5\'e9\'f2\'e8 \'ed\'e0 \'f1\'e0\'e9\'f2 \'ee\'ef\'eb\'e0\'f2\'fb, \'e2\'e2\'ee\'e4\'e8\'ec \'f2\'e0\'ec \'e4\'e0\'ed\'ed\'fb\'e5  \'f2\'e5\'f1\'f2\'ee\'e2\'ee\'e9 \'ea\'e0\'f0\'f2\'fb (\'e8\'e7 Payment succeeds  )\f1\lang1033 , \f0\lang1049\'ef\'ee\'f7\'f2\'f3 \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'ed\'ed\'f3\'fe \'ef\'f0\'e8 \'f0\'e5\'e3\'e8\'f1\'f2\'f0\'e0\'f6\'e8\'e8, \'ee\'f1\'f2\'e0\'eb\'fc\'ed\'fb\'e5 \'e4\'e0\'ed\'ed\'fb\'e5 \'ec\'ee\'e6\'ed\'ee \'e2\'fb\'e4\'f3\'ec\'e0\'f2\'fc. \'c5\'f1\'eb\'e8 \'ee\'ef\'eb\'e0\'f2\'e0 \'ef\'f0\'ee\'f8\'eb\'e0 \'f3\'f1\'ef\'e5\'f8\'ed\'ee \'f2\'ee \'ed\'e0\'f1 \'ef\'e5\'f0\'e5\'ed\'e0\'ef\'f0\'e0\'e2\'f2 \'ed\'e0 \'ed\'e0\'f8\'f3 \'f1\'f2\'f0\'e0\'ed\'e8\'f6\'f3 \'f3\'e4\'e0\'f7\'ed\'ee\'e9 \'ee\'ef\'eb\'e0\'f2\'fb.\par
+30. \'d0\'e0\'e1\'ee\'f2\'e0\'e5\'ec \'e4\'e0\'eb\'fc\'f8\'e5 \'f1 \'ee\'ef\'eb\'e0\'f7\'e5\'ed\'ed\'fb\'ec \'f2\'ee\'e2\'e0\'f0\'ee\'e2. \'cf\'ee\'e4\'ea\'eb\'fe\'f7\'e0\'e5\'ec \'e2\'e5\'e1\'f5\'f3\'ea\'e8.\par
+\'cf\'ee\'f1\'eb\'e5 \'ee\'ef\'eb\'e0\'f2\'fb \'ed\'e0 \'f1\'f2\'ee\'f0\'ee\'ed\'ed\'e5\'ec \'f1\'e0\'e9\'f2\'e5 \'ed\'e0\'ec \'ed\'e0 \'f1\'e5\'f0\'e2\'e5\'f0 \'ef\'f0\'e8\'f5\'ee\'e4\'ff\'f2 \'e4\'e0\'ed\'ed\'fb\'e5 \'f7\'f2\'ee \'f2\'ee\'e2\'e0\'f0 \'ee\'ef\'eb\'e0\'f7\'e5\'ed \'e8 \'ed\'e5\'ea\'ee\'f2\'ee\'f0\'fb\'e5 \'e5\'f9\'e5 \'e4\'e0\'ed\'ed\'fb\'e5, \'f1 \'ed\'e8\'ec\'e8 \'ec\'ee\'e6\'ed\'ee \'f0\'e0\'e1\'ee\'f2\'e0\'f2\'fc. \'c2 \'ed\'e0\'f8\'e5\'ec \'f1\'eb\'f3\'f7\'e0\'e5 \'ec\'fb \'ec\'ee\'e6\'e5\'ec \'ef\'ee\'eb\'f3\'f7\'e8\'f2\'fc \f1\lang1033 order_id \f0\lang1049\'e8 \'f1 \'ed\'e8\'ec \'f0\'e0\'e1\'ee\'f2\'e0\'f2\'fc. \par
+\'d7\'f2\'ee \'e1\'fb \'f0\'e0\'e1\'ee\'f2\'e0\'f2\'fc \'f1 \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'e5\'ed\'ed\'fb\'ec \'f1\'ee\'e1\'fb\'f2\'e8\'e5\'ec, \'ed\'e0\'ef\'f0\'e8\'ec\'e5\'f0 \'ef\'f0\'ee\'e8\'e7\'ee\'f8\'eb\'e0 \'ee\'ef\'eb\'e0\'f2\'e0, \'ed\'e0\'e4\'ee \'ef\'ee\'f1\'f2\'e0\'e2\'e8\'f2\'fc \'e2\'e5\'e1\'f5\'f3\'ea. \'d2.\'e5. \'ed\'e0 \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'e5\'ed\'ed\'fb\'e9 \'e0\'e4\'f0\'e5\'f1 \'ed\'e0\'e4\'ee \'ef\'f0\'f1\'eb\'e0\'f2\'fc \'ee\'f2\'e2\'e5\'f2 \'f1 \'e4\'e0\'ed\'ed\'fb\'ec\'e8 \'ee\'e1 \'ee\'ef\'eb\'e0\'f2\'e5.\par
+{{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/checkout/quickstart }}{\fldrslt{https://stripe.com/docs/checkout/quickstart\ul0\cf0}}}}\f0\fs24  \'e2\'ea\'eb\'e0\'e4\'ea\'e0 Next steps -\f1\lang1033 > fulfillment\par
+Install Stripe CLI ->  install guide   (\f0\lang1049\'d3\'f1\'f2\'e0\'ed\'e0\'e2\'eb\'e8\'e2\'e0\'e5\'ec \'ef\'ee \'f8\'e0\'e3\'e0\'ec)\par
+\f1\lang1033 1. \f0\lang1049\'d1\'ea\'e0\'f7\'e0\'f2\'fc \'ef\'ee\'f1\'eb\'e5\'e4\'ed\'fe\'fe windowszip-\'f4\'e0\'e9\'eb \'f1 GitHub .\par
+\f1\lang1033 2. \f0\lang1049\'d0\'e0\'e7\'e0\'f0\'f5\'e8\'e2\'e8\'f0\'f3\'e9\'f2\'e5 stripe_X.X.X_windows_x86_64.zip\'f4\'e0\'e9\'eb.\par
+\f1\lang1033 3. \f0\lang1049\'c4\'ee\'e1\'e0\'e2\'fc\'f2\'e5 \'ef\'f3\'f2\'fc \'ea \'f0\'e0\'e7\'e0\'f0\'f5\'e8\'e2\'e8\'f0\'ee\'e2\'e0\'ed\'ed\'ee\'ec\'f3 stripe.exe\'f4\'e0\'e9\'eb \'ed\'e0 \'e2\'e0\'f8 Path.\par
+\'d3 \'ec\'e5\'ed\'ff \'ed\'e5 \'ef\'ee\'eb\'f3\'f7\'e8\'eb\'ee\'f1\'fc \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'f2\'fc \'ef\'f3\'f2\'fc \'ea \'f4\'e0\'e9\'eb\'f3 \f1\lang1033 stripe.exe\f0\lang1049 , \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'eb \'f0\'f3\'f7\'ea\'e0\'ec\'e8 \'e2 \'f2\'e5\'f0\'ec\'e8\'ed\'e0\'eb\'e5 \f1\lang1033 pycharm\f0\lang1049  -\f1\lang1033 >\f0\lang1049\'ef\'f0\'ee\'ef\'e8\'f1\'e0\'eb \'e4\'e0\'eb\'e5\'e5 \f1\lang1033 stripe login\f0\lang1049 ,\f1\lang1033  \f0\lang1049\'e7\'e0\'ef\'f3\'f1\'f2\'e8\'eb\'e0\'f1\'fc \'e0\'e2\'f2\'ee\'f0\'e8\'e7\'e0\'f6\'e8\'ff, \'ef\'e5\'f0\'e5\'f8\'e5\'eb \'ef\'ee \'f1\'f1\'fb\'eb\'ea\'e5 \'e8\'e7 \'f2\'e5\'f0\'ec\'e8\'ed\'e0\'eb\'e0 -\f1\lang1033 > \f0\lang1049\'e0\'e2\'f2\'ee\'f0\'e8\'e7\'ee\'e2\'e0\'eb\'f1\'ff.\par
+\'cf\'f0\'ee\'ef\'e8\'f1\'fb\'e2\'e0\'fe\f1\lang1033 :\f0\lang1049\par
+\cf1  (venv) D:\\python\\path_var\\stripe_1.14.1_windows_x86_64>stripe status\f1\lang1033   \par
+\cf3\f0\lang1049\'f7\'f2\'ee\'e1\'fb \'ef\'f0\'ee\'e2\'e5\'f0\'e8\'f2\'fc \'f7\'f2\'ee \'e2\'f1\'e5 \'f1\'e5\'f0\'e2\'e8\'f1\'fb \'e2\'ea\'eb\'fe\'f7\'e5\'ed\'fb\par
+\cf0\f1\lang1033 31.\par
+\f0\lang1049\'d1\'ee\'e7\'e4\'e0\'e4\'e8\'ec \'ce\'e1\'f0\'e0\'e1\'ee\'f2\'f7\'e8\'ea \'f1\'ee\'e1\'fb\'f2\'e8\'e9 \'ea\'ee\'f2\'ee\'f0\'fb\'e9 \'e1\'f3\'e4\'e5\'f2 \'f0\'e5\'e0\'e3\'e8\'f0\'ee\'e2\'e0\'f2\'fc \'ed\'e0 \'f2\'ee \'f7\'f2\'ee \'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'f2\'e5\'eb\'fc \'e2\'e2\'e5\'eb \'e4\'e0\'ed\'ed\'fb\'e5 \'e4\'eb\'ff \'ee\'ef\'eb\'e0\'f2\'fb\par
+{{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/payments/checkout/fulfill-orders }}{\fldrslt{https://stripe.com/docs/payments/checkout/fulfill-orders\ul0\cf0}}}}\f0\fs24  -\f1\lang1033 > create your event handler\par
+\f0\lang1049\'e1\'e5\'f0\'e5\'ec \'ea\'ee\'e4 \'e8 \'e2 \'f1\'eb\'e5\'e4\'f3\'fe\'f9\'e8\'e9 \'f4\'e0\'e9\'eb\f1\lang1033 :\f0\lang1049\par
+\cf3\ul\i orders/views.py\par
+\cf2\ulnone\i0 ...\par
+\cf1 @csrf_exempt\par
 
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\f2\{% load humanize %\}\cf3\ul\i\f0\par
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 def stripe_webhook_view(request):\cf7\par
 
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf2\ulnone\i0 ...\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 <h5>\{\{ p.price\cf1 |intcomma \cf2\}\} \f0\'f0\'f3\'e1\f2 .</h5>\ul\i\f0\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ulnone\i0 ...\f2\lang1033\par
-\ul\i products/templates/products/basket.html\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\ulnone\i0\lang1049\{% load humanize %\}\cf2\f0\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1 ...\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 <div class="col-lg-4">\{\{ basket.sum\cf1 |intcomma \cf2\}\} \f0\'f0\'f3\'e1\f2 .</div>\f0\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1 ...\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 <h4 class="float-right">\{\{ baskets.total_sum\cf1 |intcomma\cf2  \}\} \f0\'f0\'f3\'e1\f2 .</h4>\f0\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1 ...\f2\lang1033\par
-\cf1\par
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\f0   payload = request.body\f1\lang1033  \cf5 #\f0\lang1049\'fd\'f2\'ee \'ef\'f0\'e8\'f8\'e5\'eb \'ee\'f2\'e2\'e5\'f2 \'ee\'f2 \f1\lang1033 strie\cf1\f0\lang1049\par
+  print(payload)\par
+  return HttpResponse(status=200)\par
+\cf2\f4\par
+\cf1\f1\lang1033\par
+\cf0\par
+\par
+\par
+\f0\lang1049\par
+\f2\lang1033\par
 \cf3\ul\i\par
 \par
 \cf0\ulnone\i0\f0\lang1049\par
