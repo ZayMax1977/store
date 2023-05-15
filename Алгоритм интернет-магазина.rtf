@@ -31941,7 +31941,7 @@ for p in products:\par
 \cf2 class BasketQuerySet(models.QuerySet):\line     def total_sum(self):\line         return sum(basket.sum() for basket in self)\line\line     def total_quantity(self):\line         return sum(basket.quantity for basket in self)\line\line\cf1     def stripe_products(self):\line         line_items = []\line         for basket in self:\line             item = \{\line                 'price': basket.product.stripe_product_price_id\b ,\line                 \b0 'quantity': basket.quantity\b ,\line             \b0\}\line             line_items.append(item)\line         return line_items\par
 \cf2\f1 ...\par
 \cf0\f0\lang1049\'d2\'e5\'ef\'e5\'f0\'fc \'e5\'f1\'eb\'e8 \'f1\'e4\'e5\'eb\'e0\'f2\'fc \'e7\'e0\'ea\'e0\'e7 \'ed\'e0 \'f1\'e0\'e9\'f2\'e5 \'f2\'ee \'ef\'f0\'e8\'ef\'e5\'f0\'e5\'f5\'ee\'e4\'e5 \'ed\'e0 \'f1\'e0\'e9\'f2 \'ee\'ef\'eb\'e0\'f2\'fb \'ec\'fb \'f3\'e2\'e8\'e4\'e5\'ec \'e4\'e0\'ed\'ed\'fb\'e5 \'ed\'e5 \'f2\'e5\'f1\'f2\'ee\'e2\'fb\'e5 \'e0 \'e8\'ec\'e5\'ed\'ed\'ee \'f2\'ee\'e3\'ee \'f2\'ee\'e2\'e0\'f0\'e0 \'ea\'ee\'f2\'ee\'f0\'fb\'e9 \'ec\'fb \'e7\'e0\'ea\'e0\'e7\'e0\'eb\'e8\f2\lang1033\par
-\f0\lang1049 41. \'cc\'e5\'ed\'ff\'e5\'ec \'f1\'f2\'e0\'f2\'f3\'f1 \'e7\'e0\'ea\'e0\'e7\'e0, \'f0\'e0\'e1\'ee\'f2\'e0\'e5\'ec \'f1 \'e1\'e0\'f1\'ea\'e5\'f2 \'f5\'e8\'f1\'f2\'ee\'f0\'e8 \'e8 \'ee\'f7\'e8\'f9\'e0\'e5\'ec \'ea\'ee\'f0\'e7\'e8\'ed\'f3\par
+\f0\lang1049 41. \'cc\'e5\'ed\'ff\'e5\'ec \'f1\'f2\'e0\'f2\'f3\'f1 \'e7\'e0\'ea\'e0\'e7\'e0, \'f0\'e0\'e1\'ee\'f2\'e0\'e5\'ec  \'f1 \'e1\'e0\'f1\'ea\'e5\'f2 \'f5\'e8\'f1\'f2\'ee\'f0\'e8 \'e8 \'ee\'f7\'e8\'f9\'e0\'e5\'ec \'ea\'ee\'f0\'e7\'e8\'ed\'f3\par
 \f2\lang1033\par
 \cf5\ul\i\f1\par
 \cf0\ulnone\i0\par
