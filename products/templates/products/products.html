@@ -16,18 +16,17 @@
             <h1 class="my-4">Store</h1>
             <div class="list-group">
 
-{% load cache %}
-{% cache 500 category  %}
+
+
     {% for c in category %}
                 <a href="{% url 'products:category' c.id %}" class="list-group-item">{{ c.name }}</a>
      {% endfor %}
-{% endcache %}
+
 
 
             </div>
 
         </div>
-        <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
@@ -59,7 +58,7 @@
             </div>
 
             <div class="row">
-{% cache 500 list %}
+
 
                 {% for p in object_list %}
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -83,7 +82,7 @@
                     </div>
                 </div>
                 {% endfor %}
-{% endcache %}
+
 
 
             </div>

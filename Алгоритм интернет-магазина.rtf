@@ -31862,12 +31862,102 @@ Install Stripe CLI ->  install guide   (\f0\lang1049\'d3\'f1\'f2\'e0\'ed\'e0\'e2
 \cf3\ul\i orders/views.py\par
 \cf2\ulnone\i0 ...\par
 \cf1 @csrf_exempt\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 def stripe_webhook_view(request):\cf7\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\f0   payload = request.body\f1\lang1033  \cf5 #\f0\lang1049\'fd\'f2\'ee \'ef\'f0\'e8\'f8\'e5\'eb \'ee\'f2\'e2\'e5\'f2 \'ee\'f2 \f1\lang1033 strie\cf1\f0\lang1049\par
-  print(payload)\par
+\f2 def stripe_webhook_view(request):\cf7\par
+\cf1\f0   payload = request.body\f1\lang1033  \cf5 #\f0\lang1049\'fd\'f2\'ee \'ef\'f0\'e8\'f8\'e5\'eb \'ee\'f2\'e2\'e5\'f2 \'ee\'f2 \f1\lang1033 strie\cf1\f0\lang1049\par
+  print(payload)\f1\lang1033  \cf5 # \f0\lang1049\'e4\'eb\'ff \'f2\'ee\'e3\'ee \'f7\'f2\'ee \'e1\'fb \'ef\'ee\'f1\'ec\'ee\'f2\'f0\'e5\'f2\'fc \'f7\'f2\'ee \'ef\'f0\'e8\'f5\'ee\'e4\'e8\'f2\cf1\par
   return HttpResponse(status=200)\par
+\cf0\f1\lang1033 32. \f0\lang1049\'c2 \'f1\'eb\'e5\'e4\'f3\'fe\'f9\'e5\'ec \'ef\'f3\'ed\'ea\'f2\'e5 \f1\lang1033 Testing\f0\lang1049 , \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'ed\'ee \'ea\'e0\'ea \'ef\'f0\'ee\'e8\'e7\'e2\'e5\'f1\'f2\'e8 \'ef\'f0\'ee\'f1\'eb\'f3\'f8\'e8\'e2\'e0\'ed\'e8\'e5 \'f5\'f3\'ea\'ee\'e2\f1\lang1033 :\par
+\f0\lang1049\'c2 \cf5\ul\i\f1\lang1033 store/urls.py\f0\lang1049  \cf0\ulnone\i0  \'ef\'f0\'ee\'ef\'e8\'f8\'e5\'ec\f1\lang1033 :\par
+\cf2 ...\par
+\cf1\f2 path('webhook/stripe/'\b , \b0 stripe_webhook_view\b , \b0 name='stripe_webhook')\b ,\line\par
+\cf0\b0\f1 33.  \f0\lang1049\'cf\'f0\'ee\'ef\'e8\'f8\'e5\'ec \'e2 \'f2\'e5\'f0\'ec\'e8\'ed\'e0\'eb\'e5\f1\lang1033  (\f0\lang1049\'e8\'e7 \'e4\'ee\'ea\'f3\'ec\'e5\'ed\'f2\'e0\'f6\'e8\'e8 {{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/payments/checkout/fulfill-orders }}{\fldrslt{https://stripe.com/docs/payments/checkout/fulfill-orders\ul0\cf0}}}}\f0\fs24  - \f1\lang1033 > Testing\f0\lang1049 , \'ed\'ee\'e8\'e7\'ec\'e5\'ed\'e8\'ec \'ed\'e0 \'f1\'e2\'ee\'e8 \'ef\'ee\'f0\'f2 \'e8 \'e0\'e4\'f0\'e5\'f1\f1\lang1033 :\par
+\cf1 stripe listen --forward-to \f0\lang1049 127\f1\lang1033 .0.0.1:8000/\cf10\f2 webhook/stripe/\f1    \cf5\f0\lang1049 (\'ef\'f0\'ea\'e4\'ef\'ee\'eb\'e0\'e3\'e0\'fe \'f7\'f2\'ee \'e5\'f1\'eb\'e8 \'ea\'ee\'ec\'ef \'ef\'e5\'f0\'e5\'e7\'e0\'ef\'f3\'f1\'ea\'e0\'eb\'f1\'ff \'f2\'ee \'ed\'e0\'e4\'ee \'fd\'f2\'f3 \'ea\'ee\'ec\'e0\'ed\'e4\'f3 \'e7\'e0\'ef\'f3\'f1\'ea\'e0\'f2\'fc \'e7\'e0\'ed\'ee\'e2\'ee \'f7\'f2\'ee \'e1\'fb \'e2\'ea\'eb\'fe\'f7\'e0\'eb\'ee\'f1\'fc \'ef\'f0\'ee\'f1\'eb\'f3\'f8\'e8\'e2\'e0\'ed\'e8\'e5 \'f1\'ee\'e1\'fb\'f2\'e8\'ff)\f2\lang1033\par
+\cf0\f0\lang1049 -\f1\lang1033 > \f0\lang1049\'e7\'e0\'ef\'f3\'f1\'ea\'e0\'e5\'f2\'f1\'ff \'ef\'f0\'ee\'f1\'eb\'f3\'f8\'e8\'e2\'e0\'ed\'e8\'e5 \'f1\'ee\'e1\'fb\'f2\'e8\'ff \'e8 \'f1\'ee\'e7\'e4\'e0\'e5\'f2\'f1\'ff \f1\lang1033 webhook\f0\lang1049 , \'ec\'fb \'e2\'e8\'e4\'e8\'ec \'f1\'e3\'e5\'ed\'e5\'f0\'e8\'f0\'ee\'e2\'e0\'ed\'ed\'fb\'e9 \'f1\'e5\'ea\'f0\'e5\'f2\'ed\'fb\'e9 \'ea\'eb\'fe\'f7, \'e5\'e3\'ee \'ef\'f0\'ee\'ef\'e8\'f1\'fb\'e2\'e0\'e5\'ec \'e2 \f1\lang1033 settings.py\cf7\f2\par
+\cf3\ul\i store/settings.py\par
+\cf1\ulnone\i0 STRIPE_WEBHOOK_SECRET = 'whsec_1f02bbffa8bc876cfae807da1ddddeb2d0ff82c2be0345d3f3205d136ca965b7'\par
+\cf0\f1 34. \f0\lang1049\'c4\'e5\'eb\'e0\'e5\'ec \'ed\'ee\'e2\'f3\'fe \'ee\'ef\'eb\'e0\'f2\'f3 \'e7\'e0\'ea\'e0\'e7\'e0  \'f2\'e5\'f1\'ea\'ee\'e2\'ee\'e9 \'e1\'e0\'ed\'ea\'ee\'e2\'f1\'ea\'ee\'e9 \'ea\'e0\'f0\'f2\'ee\'e9 \'e8 \'f1\'ec\'ee\'f2\'f0\'e8\'f2 \'f7\'f2\'ee \'ed\'e0\'ec \'e2\'fb\'e2\'e5\'eb \'e2 \f1\lang1033 print\f0\lang1049  \'f1\'eb\'f3\'f8\'e0\'f2\'e5\'eb\'fc \'f1\'ee\'e1\'fb\'f2\'e8\'e9\f1\lang1033 . \f0\lang1049\'c5\'f1\'eb\'e8 \'e2\'fb\'e2\'e5\'eb\'e8\'f1\'fc \'e4\'e0\'ed\'ed\'fb\'e5, \'f2\'ee \'f0\'e0\'e1\'ee\'f2\'e0\'e5\'f2.\par
+\f1\lang1033 35. \f0\lang1049\'cf\'f3\'ed\'ea\'f2 \f1\lang1033 fulfill the order:\par
+\f0\lang1049\'e1\'e5\'f0\'e5\'ec \'ea\'ee\'e4 \'f1 13 \'ef\'ee 41 (\'ef\'ee\'ea\'e0 \'f2\'e0\'ea\f1\lang1033 , \f0\lang1049\'e2\'ee\'e7\'ec\'ee\'e6\'ed\'ee \'ea\'e0\'ea\'e8\'e5 \'f2\'ee \'f1\'f2\'f0\'ee\'ea\'e8 \'e8\'e7\'ec\'e5\'ed\'ff\'f2\'f1\'ff \'f1\'ee \'e2\'f0\'e5\'ec\'e5\'ed\'e5\'ec) \'f1\'f2\'f0\'ee\'ea\'f3\f1\lang1033  \f0\lang1049\'e8 \'e8\'e7\'ec\'e5\'ed\'e8\'ec \cf5\ul\i orders/views.py\par
+\cf1\ulnone\i0\f2 @csrf_exempt\line def stripe_webhook_view(request):\line\cf2\strike     payload = request.body\line     print(payload)\line     return HttpResponse(status=200)\line\cf1\strike0\line\f0\tab\f2 payload = request.body\line\f0\tab\f2 sig_header = request.META['HTTP_STRIPE_SIGNATURE']\line\f0\tab\f2 event = None\line\line\f0\tab\f2 try:\line     \f0\tab\tab\f2 event = stripe.Webhook.construct_event(\line         \f0\tab\tab\f2 payload\b , \b0 sig_header\b , \b0 settings.STRIPE_WEBHOOK_SECRET\par
+\line     )\line\f0\tab\f2 except ValueError as e:\line     \f0\tab\tab\f2 return HttpResponse(status=\b 400\b0 )\line\f0\tab\f2 except stripe.error.SignatureVerificationError as e:\line     \f0\tab\tab\f2 return HttpResponse(status=\b 400\b0 )\line\line\f0\tab\f2 if event['type'] == 'checkout.session.completed':\line     \f0\tab\tab\f2 session = stripe.checkout.Session.retrieve(\line         \f0\tab\tab\f2 event['data']['object']['id']\b ,\line         \f0\tab\tab\b0\f2 expand=['line_items']\b ,\line     \b0 )\line\line     \f0\tab\tab\f2 line_items = session.line_items\line     \f0\tab\tab\f2 fulfill_order(line_items)\line\line\f0\tab\f2 return HttpResponse(status=\b 200\b0 )\par
+def fulfill_order(line_items):\line\i   \i0 print("Fulfilling order")\f1\lang1033  \cf3 # \f0\lang1049\'ef\'ee\'f1\'ec\'ee\'f2\'f0\'e8\'ec \'ed\'e0 \'f1\'e5\'f1\'f1\'e8\'fe \'ea\'ee\'f2\'ee\'f0\'e0\'ff \'ef\'f0\'e8\'e4\'e5\'f2\par
+\cf1\f1\lang1033      print(\f2\lang1049 line_items\f1\lang1033 )\par
+     \f2 print('\f0\lang1049\'fd\'f2\'ee\f2\lang1033  id: '\b , \b0 line_items.data[\b 0\b0 ].id)\cf5\f1 # \f0\lang1049\'f2\'e0\'ea \'ef\'ee\'eb\'f3\'f7\'e0\'e5\'ec \f1\lang1033 id\f2\par
+\cf1\f4\lang1049\par
+\cf0\f0\'cf\'f0\'ee\'e1\'f3\'e5\'ec \'ee\'ef\'ff\'f2\'fc \'e4\'e5\'eb\'e0\'f2\'fc \'ee\'ef\'eb\'e0\'f2\'f3 \'f1 \'f2\'e5\'f1\'f2\'ee\'e2\'ee\'e9 \'ea\'e0\'f0\'f2\'ee\'e9 \'e8 \'ef\'ee\'f1\'ec\'ee\'f2\'f0\'e8\'ec \'f7\'f2\'ee \'ef\'f0\'e8\'f5\'ee\'e4\'e8\'f2 \'e2 \f2 line_items\f1\lang1033  \f0\lang1049 , \'fd\'f2\'ee \'e8\'ed\'f4\'ee\'f0\'ec\'e0\'f6\'e8\'ff \'ef\'ee \'f2\'ee\'e2\'e0\'f0\'f3.\par
+\f1\lang1033 36.\par
+\cf3\ul\i products/models.py\par
+\cf2\ulnone\i0\f2 class Product(models.Model):\line     name = models.CharField(max_length=\b 256\b0 )\line     description = models.TextField()\line     price = models.DecimalField(max_digits=\b 8, \b0 decimal_places=\b 2\b0 )\line     quantity = models.PositiveIntegerField(default=\b 0\b0 )\line     image = models.ImageField(upload_to='product_photo/%Y/%m/%d/')\line\cf1     stripe_product_price_id = models.CharField(max_length=\b 128,\b0 null=True\b ,\b0 blank=True)\line\cf2     category = models.ForeignKey(ProductCategory\b , \b0 on_delete=models.CASCADE)\par
+\cf0\f1 37. \f0\lang1049\'d1\'e4\'e5\'eb\'e0\'f2\'fc \'ec\'e8\'e3\'f0\'e0\'f6\'e8\'e8\par
+\f1\lang1033 38.\par
+\cf3\ul\i products/admin.py\par
+\cf2\ulnone\i0\f2 @admin.register(Product)\line class ProductAdmin(admin.ModelAdmin):\line     list_display = ('name'\b , \b0 'price'\b , \b0 'quantity'\b , \b0 'category')\line     fields = ('name'\b , \b0 'description'\b , \b0 ('price'\b , \b0 'quantity'\b ,\b0 )\b , \b0 'image'\b ,\b0 '\cf1 stripe_product_price_id\cf2 '\b , \b0 'category')\line     search_fields = ('name'\b ,\b0 )\line     ordering = ('name'\b ,\b0 )\par
+\cf0\f1 38.1  {{\field{\*\fldinst{HYPERLINK https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=checkout#create-product-prices-upfront }}{\fldrslt{https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=checkout#create-product-prices-upfront\ul0\cf0}}}}\f1\fs24\par
+\cf5\ul\i products/models.py\par
+\cf1\ulnone\i0\f2 import stripe\line from store import settings\line\cf7\par
+\cf1 stripe.api_key = settings.STRIPE_SECRET_KEY\line\cf2\f1 ...\par
+\f2 class Product(models.Model):\line\f1\tab ...\par
+\cf1\tab\f2 def create_stripe_product_price(self):\line     \f1\tab\tab\f2 stripe_product=stripe.Product.create\par
+(name=self.name)\par
+\f1\tab\tab\f2 stripe_product_price \f1\tab   \f2 =stripe.Price.create(product=stripe_product['id']\b ,\b0 unit_amount=round(self.price * \b 100\b0 )\b ,\b0 currency="rub")\line     \f1\tab\tab\f2 return stripe_product_price\line\par
+\cf3\f0\lang1049\'c5\'f1\'eb\'e8 \'f1\'e4\'e5\'eb\'e0\'f2\'fc \'e2\'fb\'e7\'ee\'e2 \'fd\'f2\'ee\'e9 \'f4\'f3\'ed\'ea\'f3\'f6\'e8\'e8 \'ed\'e0 \'ee\'f2\'ea\'f0\'fb\'f2\'e8\'e8 \'ea\'e0\'ea\'ee\'e9 \'eb\'e8\'e1\'ee \'f1\'f2\'f0\'e0\'ed\'e8\'f6\'fb \'e8 \'e5\'f1\'eb\'e8 \'ee\'ed\'e0 \'f2\'f0\'e0\'e1\'ee\'f2\'e0\'e5\'f2 \'ef\'f0\'e0\'e2\'e8\'eb\'fc\'ed\'ee \'f2\'ee \'e2 \f1\lang1033 dashbord \f0\lang1049\'ed\'e0 \'f1\'e0\'e9\'f2\'e5 \f1\lang1033 stripe\f0\lang1049   \'e2\'ee \'e2\'ea\'eb\'e0\'e4\'ea\'e5 \f1\lang1033 products \f0\lang1049\'ef\'ee\'ff\'e2\'e8\'f2\'f1\'ff \'ed\'ee\'e2\'fb\'e9 \'f2\'ee\'e2\'e0\'f0\f1\lang1033  \f0\lang1049  \'e0\f1\lang1033  print \f0\lang1049\'ef\'ee\'ea\'e0\'e6\'e5\'f2 \'e2\'ee\'e7\'e2\'f0\'e0\'f9\'e5\'ed\'ed\'fb\'e5 \'e4\'e0\'ed\'ed\'fb\'e5 \'ee \'e7\'e0\'ea\'e0\'e7\'e5.\f1\lang1033  \f0\lang1049\'cd\'e0\'ef\'f0\'e8\'ec\'e5\'f0 \'f2\'e0\'ea\f1\lang1033 :\par
+# \f0\lang1049\'fd\'f2\'ee\'f2 \'ea\'ee\'e4 \'ef\'f0\'ee\'f1\'f2\'ee \'e4\'eb\'ff \'f2\'e5\'f1\'f2\'e0\f1\lang1033\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\f2 w = Product.objects.last()\line q = w.create_stripe_product_price()\line print(q)\par
+\cf0\f1 39. \f0\lang1049\'ea\'e0\'ea \'e6\'e5 \'f2\'e5\'ef\'e5\'f0\'fc \'ef\'e5\'f0\'e5\'ed\'e5\'f1\'f2\'e8 \'e2\'f1\'e5\f1\lang1033  \f0\lang1049\'f2\'ee\'e2\'e0\'f0\'fb \'e2 \'e1\'e0\'e7\'f3 \f1\lang1033 stripe\f0\lang1049 (\'f7\'f2\'ee \'e1\'fb \'ee\'ed\'e8 \'ef\'ee\'ff\'e2\'e8\'eb\'e8\'f1\'fc \'e2\'ee \'e2\'ea\'eb\'e0\'e4\'ea\'e5 \f1\lang1033 products dashbord \f0\lang1049\'f1\'e0\'e9\'f2\'e0 \f1\lang1033 stripe) \f0\lang1049\'e8 \'e2 \'e0\'e4\'ec\'e8\'ed\'ea\'e5 \'e7\'e0\'ef\'ee\'eb\'ed\'e8\'eb\'ee\'f1\'fc \'ef\'ee\'eb\'e5 \'ec\'ee\'e4\'e5\'eb\'e8 \f1\lang1033 Products - \cf2\f2 stripe_product_price_id\f1  \cf0\f0\lang1049\'e4\'eb\'ff \'ea\'e0\'e6\'e4\'ee\'e3\'ee \'f2\'ee\'e2\'e0\'f0\'e0. \'c4\'e5\'eb\'e0\'e5\'ec \'f2\'e0\'ea\f1\lang1033 :\par
+\cf5\ul\i products/models.py\par
+\cf2\ulnone\i0\f2 class Product(models.Model):\par
+\f1 ...\cf5\ul\i\par
+
+\pard\box\brdrdash\brdrw0 \li720\sa200\sl240\slmult1\cf1\ulnone\i0\f2 def save(self\b ,\b0 force_insert=False\b ,\b0 force_update=False\b , \b0 using=None\b , \b0 update_fields=None):\line     if not self.stripe_product_price_id:\line         stripe_product_price = \f1    \f2 self.create_stripe_product_price()\line         self.stripe_product_price_id = stripe_product_price['id']\line     super(Product\b ,\b0 self).save(force_insert=False\b ,\par
+\b0 force_update=False\b , \b0 using=None\b , \b0 update_fields=None)\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf0\f0\lang1049\'d2\'e5\'ef\'e5\'f0\'fc \'e7\'e0\'e9\'e4\'ff \'e2 \'e0\'e4\'ec\'e8\'ed\'ea\'f3 \'ed\'e0 \'eb\'fe\'e1\'ee\'e9 \'f2\'ee\'e2\'e0\'f0, \'e5\'f1\'eb\'e8 \'f1\'e4\'e5\'eb\'e0\'f2\'fc \'ef\'e5\'f0\'e5\'f1\'ee\'f5\'f0\'e0\'ed\'e5\'ed\'e8\'e5 \'e5\'e3\'ee \'f2\'ee \'ef\'ee\'eb\'e5 \f2\lang1033 stripe_product_price_id \f0\lang1049  \'e7\'e0\'ef\'ee\'eb\'ed\'e8\'f2\'f1\'ff \'e8 \'f2\'ee\'e2\'e0\'f0 \'ef\'ee\'ff\'e2\'e8\'f2\'f1\'ff \'e2\'ee \'e2\'ea\'eb\'e0\'e4\'ea\'e5 \f1\lang1033 Products \f0\lang1049\'f1\'e0\'e9\'f2\'e0 \f1\lang1033 stripe. \par
+\f0\lang1049\'d2\'e0\'ea \'ec\'ee\'e6\'ed\'ee \'ef\'e5\'f0\'e5\'f1\'ee\'f5\'f0\'e0\'ed\'e8\'f2\'fc \'e2\'f1\'e5 \'f2\'ee\'e2\'e0\'f0\'fb \'e8 \'ee\'ed\'e8 \'ef\'ee\'ff\'e2\'ff\'f2\'ff\'f1\'ff \'e2 \'e1\'e0\'e7\'e5\f1\lang1033  stripe \f2 stripe_product_price_id \f0\lang1049  \'e8 \'e8\'f5 \'ef\'ee\'eb\'ff \'e7\'e0\'ef\'ee\'eb\'ed\'ff\'f2\'f1\'ff\f1\lang1033 .\par
+\f0\lang1049\'c5\'f1\'eb\'e8 \'ec\'ed\'ee\'e3\'ee \'f2\'ee\'e2\'e0\'f0\'e0 \'f2\'ee \'e2 \'ea\'ee\'ed\'f1\'ee\'eb\'e8 \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'f2\'fc\f1\lang1033 :\par
+\cf1 from products.models import Product\par
+products = Product.objects.all()\par
+for p in products:\par
+\tab p.save()\f2\par
+\cf0\f0\lang1049\'cd\'ee \'f3 \'ec\'e5\'ed\'ff \'ea\'ee\'ed\'f1\'ee\'eb\'fc \'ef\'ee\'f7\'e5\'ec\'f3 \'f2\'ee \'ed\'e5 \'f0\'e0\'e1\'ee\'f2\'f2\'e0\'e5\'f2, \'ef\'ee\'fd\'f2\'ee\'ec\'f3 \'ef\'f0\'ee\'ef\'e8\'f8\'f3 \'e2\'f0\'e5\'ec\'e5\'ed\'ed\'fb\'e9 \'ea\'ee\'e4 \'e2 \'ea\'eb\'e0\'f1\'f1\'e5 \f1\lang1033 Product:\par
+\cf3\ul\i products/views.py\par
+\cf2\ulnone\i0\f2 class ProductsListView(TitleMixin\b , \b0 ListView):\line     model = Product\line     template_name = 'products/products.html'\line     paginate_by = \b 3\line     \b0 title = 'Store - \f0\lang1049\'ca\'e0\'f2\'e0\'eb\'ee\'e3\f2\lang1033 '\line\line     def get_queryset(self):\line         queryset = super(ProductsListView\b , \b0 self).get_queryset()\line         category_id = self.kwargs.get('category_id')\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\f0\lang1049        \f2\lang1033 products = Product.objects.all()\line\f0\lang1049       \f2\lang1033 for p in products:\line     \f0\lang1049      \f1\lang1033 p.save()\cf2\f2\line\line         return queryset.filter(category_id=category_id) if category_id else queryset\line\line     def get_context_data(self\b , \b0 *\b , \b0 object_list=None\b , \b0 **kwargs):\line         context = super(ProductsListView\b , \b0 self).get_context_data()\line         context['category'] = ProductCategory.objects.all()\line         return context\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf0\f0\lang1049\'c8 \'e7\'e0\'ef\'f3\'f9\'f3 \'f1\'f2\'f0\'e0\'ed\'e8\'f6\'f3 \'e3\'e4\'e5 \'ef\'ee\'ea\'e0\'e7\'fb\'e2\'e0\'e5\'f2\'f1\'ff \'e2\'e5\'f1\'fc \'e0\'f1\'f1\'ee\'f0\'f2\'e8\'ec\'e5\'ed\'f2 \'f2\'ee\'e2\'e0\'f0\'e0, \'f2\'ee\'eb\'fc\'ea\'ee \'ee\'e4\'e8\'ed \'f0\'e0\'e7, \'e0 \'f2\'ee \'ef\'f0\'ee\'e4\'f3\'e1\'eb\'e8\'f0\'f3\'fe\'f2\'f1\'ff \'e2 \'e1\'e0\'e7\'e5 \f1\lang1033 stripe, \f0\lang1049\'e8 \'f3\'e4\'e0\'eb\'e8\'f2\'fc \'ef\'f0\'ee\'ef\'e8\'f1\'e0\'ed\'ed\'fb\'e9 \'ea\'ee\'e4 \'e8\'e7 \'ef\'f0\'ee\'e5\'ea\'f2\'e0. \par
+\'d2\'e5\'ef\'e5\'f0\'fc \'e8 \'ef\'ee\'eb\'e5 \cf2\f2\lang1033 stripe_product_price_id\cf1  \cf0\f0\lang1049\'e2 \'ef\'f0\'ee\'e4\'f3\'ea\'f2\'e0\'f5 \'e2 \'e0\'e4\'ec\'e8\'ed\'ea\'e5 \'e7\'e0\'ef\'ee\'eb\'ed\'e5\'ed\'ee.\par
+\'ca\'ee\'f0\'ee\'f7\'e5 \'ed\'e0\'e4\'ee \'e7\'e0\'ef\'f3\'f1\'f2\'e8\'f2\'fc \'ea\'ee\'e4\f1\lang1033 :\cf2\f2\par
+\cf1\f0\lang1049        \f2\lang1033 products = Product.objects.all()\line\f0\lang1049       \f2\lang1033 for p in products:\line     \f0\lang1049      \f1\lang1033 p.save()\par
+\cf0\f0\lang1049\'e8\'eb\'e8 \'ef\'f0\'ee\'f1\'f2\'ee \'ef\'e5\'f0\'e5\'f1\'ee\'f5\'f0\'e0\'ed\'e8\'f2\'fc \'e2 \'e0\'e4\'ec\'e8\'ed\'ea\'e5.\par
+\'d2\'e5\'ef\'e5\'f0\'fc \'ec\'ee\'e6\'ed\'ee \'f0\'e0\'e1\'ee\'f2\'e0\'f2\'fc \'f1 \'f0\'e5\'e0\'eb\'fc\'ed\'fb\'ec\'e8 \'e4\'e0\'ed\'ed\'fb\'ec\'e8.\par
+40. \'d3\'e1\'e8\'f0\'e0\'e5\'ec \'f5\'e0\'f0\'e4\'ea\'ee\'f0 \'e2 \'ea\'ee\'e4\'e5\f1\lang1033 :\par
+\cf5\ul\i orders/views.py\par
+\cf2\ulnone\i0 ...\par
+\f2 class OrderCreateView(TitleMixin\b ,\b0 CreateView):\line     template_name = 'orders/order-create.html'\line     form_class = OrderForm\line     success_url = reverse_lazy('orders:order_create')\line     title = 'Store - \f0\lang1049\'ce\'f4\'ee\'f0\'ec\'eb\'e5\'ed\'e8\'e5\f2\lang1033  \f0\lang1049\'e7\'e0\'ea\'e0\'e7\'e0\f2\lang1033 '\line\line     def post(self\b , \b0 request\b , \b0 *args\b , \b0 **kwargs):\line         super(OrderCreateView\b , \b0 self).post(request\b , \b0 *args\b , \b0 **kwargs)\line\cf1         baskets = Basket.objects.filter(user = self.request.user)\line\cf2         checkout_session = stripe.checkout.Session.create(\line\cf1             line_items=baskets.stripe_products\f0\lang1049 ()\b\f2\lang1033 ,\line\cf2             \b0 mode='payment'\b ,\line             \b0 success_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_success'))\b ,\line             \b0 cancel_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_canceled'))\b ,\line         \b0 )\line         return  HttpResponseRedirect(checkout_session.url\b ,\b0 status = HTTPStatus.SEE_OTHER)\par
+\f1 ...\f2\par
+\cf5\ul\i products/models.py\par
+\ulnone\i0\f1 ...\f2\par
+\cf2 class BasketQuerySet(models.QuerySet):\line     def total_sum(self):\line         return sum(basket.sum() for basket in self)\line\line     def total_quantity(self):\line         return sum(basket.quantity for basket in self)\line\line\cf1     def stripe_products(self):\line         line_items = []\line         for basket in self:\line             item = \{\line                 'price': basket.product.stripe_product_price_id\b ,\line                 \b0 'quantity': basket.quantity\b ,\line             \b0\}\line             line_items.append(item)\line         return line_items\par
+\cf2\f1 ...\par
+\cf0\f0\lang1049\'d2\'e5\'ef\'e5\'f0\'fc \'e5\'f1\'eb\'e8 \'f1\'e4\'e5\'eb\'e0\'f2\'fc \'e7\'e0\'ea\'e0\'e7 \'ed\'e0 \'f1\'e0\'e9\'f2\'e5 \'f2\'ee \'ef\'f0\'e8\'ef\'e5\'f0\'e5\'f5\'ee\'e4\'e5 \'ed\'e0 \'f1\'e0\'e9\'f2 \'ee\'ef\'eb\'e0\'f2\'fb \'ec\'fb \'f3\'e2\'e8\'e4\'e5\'ec \'e4\'e0\'ed\'ed\'fb\'e5 \'ed\'e5 \'f2\'e5\'f1\'f2\'ee\'e2\'fb\'e5 \'e0 \'e8\'ec\'e5\'ed\'ed\'ee \'f2\'ee\'e3\'ee \'f2\'ee\'e2\'e0\'f0\'e0 \'ea\'ee\'f2\'ee\'f0\'fb\'e9 \'ec\'fb \'e7\'e0\'ea\'e0\'e7\'e0\'eb\'e8\f2\lang1033\par
+\f0\lang1049 41. \'cc\'e5\'ed\'ff\'e5\'ec \'f1\'f2\'e0\'f2\'f3\'f1 \'e7\'e0\'ea\'e0\'e7\'e0, \'f0\'e0\'e1\'ee\'f2\'e0\'e5\'ec \'f1 \'e1\'e0\'f1\'ea\'e5\'f2 \'f5\'e8\'f1\'f2\'ee\'f0\'e8 \'e8 \'ee\'f7\'e8\'f9\'e0\'e5\'ec \'ea\'ee\'f0\'e7\'e8\'ed\'f3\par
+\f2\lang1033\par
+\cf5\ul\i\f1\par
+\cf0\ulnone\i0\par
+\f2\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f1\par
+\f2\line\cf7\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\par
+\cf7\par
+\cf2\ul\i\par
+\cf0\ulnone\i0\par
+\cf3\ul\i\par
+\cf9\ulnone\i0\par
+\cf0\f1\par
+\f0\lang1049\par
 \cf2\f4\par
 \cf1\f1\lang1033\par
 \cf0\par
