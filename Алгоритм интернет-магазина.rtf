@@ -31932,14 +31932,10 @@ for p in products:\par
 \cf5\ul\i orders/views.py\par
 \cf2\ulnone\i0 ...\par
 \f2 class OrderCreateView(TitleMixin\b ,\b0 CreateView):\line     template_name = 'orders/order-create.html'\line     form_class = OrderForm\line     success_url = reverse_lazy('orders:order_create')\line     title = 'Store - \f0\lang1049\'ce\'f4\'ee\'f0\'ec\'eb\'e5\'ed\'e8\'e5\f2\lang1033  \f0\lang1049\'e7\'e0\'ea\'e0\'e7\'e0\f2\lang1033 '\line\line     def post(self\b , \b0 request\b , \b0 *args\b , \b0 **kwargs):\line         super(OrderCreateView\b , \b0 self).post(request\b , \b0 *args\b , \b0 **kwargs)\line\cf1         baskets = Basket.objects.filter(user = self.request.user)\line\cf2         checkout_session = stripe.checkout.Session.create(\line\cf1             line_items=baskets.stripe_products\f0\lang1049 ()\b\f2\lang1033 ,\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\b0\f1\tab\tab       \f2 metadata =\{'order_id': self.object.id\}\b ,\line\line\cf2             \b0 mode='payment'\b ,\line             \b0 success_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_success'))\b ,\line             \b0 cancel_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_canceled'))\b ,\line         \b0 )\line         return  HttpResponseRedirect(checkout_session.url\b ,\b0 status = HTTPStatus.SEE_OTHER)\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f1 ...\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\f2 @csrf_exempt\line def stripe_webhook_view(request):\line\line     payload = request.body\line     sig_header = request.META['HTTP_STRIPE_SIGNATURE']\line     event = None\line\line     try:\line         event = stripe.Webhook.construct_event(\line             payload\b , \b0 sig_header\b , \b0 settings.STRIPE_WEBHOOK_SECRET\line         )\line     except ValueError as e:\line         return HttpResponse(status=\b 400\b0 )\line     except stripe.error.SignatureVerificationError as e:\line         return HttpResponse(status=\b 400\b0 )\line\line     if event['type'] == 'checkout.session.completed':\line         session = stripe.checkout.Session.retrieve(\line             event['data']['object']['id']\b ,\line             \b0 expand=['line_items']\b ,\line         \b0 )\line         line_items = session.line_items\line         fulfill_order(line_items\b ,\cf1\b0 session\cf2 )\line     return HttpResponse(status=\b 200\b0 )\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\par
+\b0\f1\tab\tab       \f2 metadata =\{'order_id': self.object.id\}\b ,\line\line\cf2             \b0 mode='payment'\b ,\line             \b0 success_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_success'))\b ,\line             \b0 cancel_url='\{\}\{\}'.format(settings.DOMAIN_NAME\b , \b0 reverse('orders:order_canceled'))\b ,\line         \b0 )\line         return  HttpResponseRedirect(checkout_session.url\b ,\b0 status = HTTPStatus.SEE_OTHER)\par
+\f1 ...\par
+\f2 @csrf_exempt\line def stripe_webhook_view(request):\line\line     payload = request.body\line     sig_header = request.META['HTTP_STRIPE_SIGNATURE']\line     event = None\line\line     try:\line         event = stripe.Webhook.construct_event(\line             payload\b , \b0 sig_header\b , \b0 settings.STRIPE_WEBHOOK_SECRET\line         )\line     except ValueError as e:\line         return HttpResponse(status=\b 400\b0 )\line     except stripe.error.SignatureVerificationError as e:\line         return HttpResponse(status=\b 400\b0 )\line\line     if event['type'] == 'checkout.session.completed':\line         session = stripe.checkout.Session.retrieve(\line             event['data']['object']['id']\b ,\line             \b0 expand=['line_items']\b ,\line         \b0 )\line         line_items = session.line_items\line         fulfill_order(line_items\b ,\cf1\b0 session\cf2 )\line     return HttpResponse(status=\b 200\b0 )\par
+\par
 \cf5\ul\i products/models.py\par
 \ulnone\i0\f1 ...\f2\par
 \cf2 class BasketQuerySet(models.QuerySet):\line     def total_sum(self):\line         return sum(basket.sum() for basket in self)\line\line     def total_quantity(self):\line         return sum(basket.quantity for basket in self)\line\line\cf1     def stripe_products(self):\line         line_items = []\line         for basket in self:\line             item = \{\line                 'price': basket.product.stripe_product_price_id\b ,\line                 \b0 'quantity': basket.quantity\b ,\line             \b0\}\line             line_items.append(item)\line         return line_items\par
@@ -31949,26 +31945,66 @@ for p in products:\par
 \'d1\'ee\'e7\'e4\'e0\'e5\'ec \'ec\'e5\'f2\'ee\'e4, \'ee\'ed \'e1\'f3\'e4\'e5\'f2 \'e2\'ee\'e7\'e2\'f0\'e0\'f9\'e0\'f2\'fc \'f1\'eb\'ee\'e2\'e0\'f0\'fc \'f1 \'e4\'e0\'ed\'ed\'fb\'ec\'e8 \'ee \'ea\'ee\'f0\'e7\'e8\'ed\'e5 \'ea\'ee\'f2\'ee\'f0\'fb\'e5 \'ec\'fb \'e1\'f3\'e4\'e5\'ec \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'f2\'fc \'e2 \f1\lang1033 basket history.\f0\lang1049\par
 \cf5\ul\i products/models.py\par
 \cf2\ulnone\i0\f1\lang1033 ...\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\f2 def de_json(self):\line     basket_item=\{\line         'product_name': self.product.name\b ,\line         \b0 'quantity': self.quantity\b ,\line         \b0 'price': float(self.product.price)\b ,\line         \b0 'sum': float(self.sum())\b ,\line     \b0\}\line     return basket_item\par
+\cf1\f2 def de_json(self):\line     basket_item=\{\line         'product_name': self.product.name\b ,\line         \b0 'quantity': self.quantity\b ,\line         \b0 'price': float(self.product.price)\b ,\line         \b0 'sum': float(self.sum())\b ,\line     \b0\}\line     return basket_item\par
 \cf2\f1 ...\f2\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ul\i\f0\lang1049 orders/models.py\par
-
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf2\ulnone\i0\f2 class Order(models.Model):\par
+\cf3\ul\i\f0\lang1049 orders/models.py\par
+\cf2\ulnone\i0\f2 class Order(models.Model):\par
 \f1\lang1033 ...\par
 
 \pard\box\brdrdash\brdrw0 \li720\sa200\sl240\slmult1\cf1\f2 def update_after_payment(self):\line     baskets = Basket.objects.filter(user=self.initiator)\line     self.status = self.PAID\line     self.basket_history  = \{\line         'purchased_items': [basket.de_json() for basket in baskets]\b ,\line     \b0 'total_sum': float(baskets.total_sum())\b ,\line     \b0\}\line     baskets.delete()\line     self.save()\par
 
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ul\i\lang1049 orders/views.py\par
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ul\i\f4\lang1049 orders/views.py\par
 \ulnone\i0\f0 ...\f2\line\cf1 def fulfill_order(line_items\b ,\b0 session):\line     order = Order.objects.get(id=session.metadata.order_id)\line     order.update_after_payment()\par
 \f0 ...\f2\par
 \cf0\f0\'d2\'e5\'ef\'e5\'f0\'fc \'ef\'ee\'f1\'eb\'e5 \'ee\'ef\'eb\'e0\'f2\'fb \'f2\'ee\'e2\'e0\'f0\'e0 \'e2 \'e0\'e4\'ec\'e8\'ed\'ea\'e5 \'e2 \'ef\'ee\'eb\'e5 Basket history \'ef\'ee\'ff\'e2\'e8\'f2\'f1\'ff \'e8\'ed\'f4\'ee\'f0\'ec\'e0\'f6\'e8\'ff \'ee \'e7\'e0\'ea\'e0\'e7\'e5 \'e0 \'ef\'ee\'eb\'e5 \f1\lang1033 status \f0\lang1049\'e8\'e7\'ec\'e5\'ed\'e8\'f2\'f1\'ff \'ed\'e0 \'ee\'ef\'eb\'e0\'f7\'e5\'ed\'ee, \'e8 \'ea\'ee\'f0\'e7\'e8\'ed\'e0 \'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'f2\'e5\'eb\'ff \'ee\'e1\'ed\'f3\'eb\'e8\'f2\'f1\'ff.\par
-42. \'ce\'f4\'ee\'f0\'ec\'e8\'ec \'f1\'f2\'f0\'e0\'ed\'e8\'f6\'f3 \'f1 \'e7\'e0\'ea\'e0\'e7\'ee\'ec \'e8 \'e4\'e5\'f2\'e0\'eb\'e8 \'e7\'e0\'ea\'e0\'e7\'e0.\par
-\f2\par
-\cf7\par
+42. \'ce\'f4\'ee\'f0\'ec\'e8\'ec \'f1\'f2\'f0\'e0\'ed\'e8\'f6\'f3 \'f1 \'e7\'e0\'ea\'e0\'e7\'ee\'ec(\'f1\'ef\'e8\'f1\'ee\'ea \'e7\'e0\'ea\'e0\'e7\'ee\'e2) \'e8 \'e4\'e5\'f2\'e0\'eb\'e8 \'e7\'e0\'ea\'e0\'e7\'e0.\par
+\'c7\'e0 \'f1\'ef\'e8\'f1\'ee\'ea \'e7\'e0\'ea\'e0\'e7\'ee\'e2 \'ee\'f2\'e2\'e5\'f7\'e0\'e5\'f2 \'e2 \'ef\'f0\'ee\'e5\'ea\'f2\'e5 \'f4\'e0\'e9\'eb\f1\lang1033 :\par
+\cf3\ul\i orders/views.py\par
+\cf2\ulnone\i0 ...\par
+\cf1\f2 class OrderListView(TitleMixin\b , \b0 ListView):\line     template_name = 'orders/orders.html'\line     title = 'Store - \f0\lang1049\'c7\'e0\'ea\'e0\'e7\'fb\f2\lang1033 '\par
+\f1           \f2\lang1049 ordering = ('-created')\line\f3\lang1033\line     queryset = Order.objects.all\cf3 ()\f1 #\f0\lang1049\'c7\'e4\'e5\'f1\'fc \'ec\'fb \'ef\'ee\'eb\'f3\'f7\'e0\'e5\'ec \'e2\'f1\'e5 \'ee\'f0\'e4\'e5\'f0\'e0, \'ed\'ee \'e2 \'f1\'eb\'e5\'e4\'f3\'fe\'f9\'e5\'ec \'ec\'e5\'f2\'ee\'e4\'e5 \'f1\'f3\'e7\'e8\'ec \f1\lang1033 queryset \f0\lang1049\'e4\'ee \'f2\'e5\'f5 \'ea\'ee\'f2\'ee\'f0\'fb\'e5 \'ef\'f0\'e8\'ed\'e0\'e4\'eb\'e5\'e6\'e0\'f2 \'e8\'ed\'e8\'f6\'e8\'e0\'f2\'ee\'f0\'f3 \par
+\cf7\f2\par
+\cf3\f3\lang1033\line\cf1\line     def get_queryset(self):\line         queryset = super(OrderListView\b ,\b0 self).get_queryset()\line         return queryset.filter(initiator = self.request.user)\par
+\cf2\f1 ...\f2\par
+\cf1\f0\lang1049 43. \cf3\ul\i\f1\lang1033 orders/templates/orders/orders.html\par
 
-\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf3\ul\i\f0\par
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\ulnone\i0\f2\{% extends 'products/base.html' %\}\line\{% load static %\}\line\line\{% block css %\}\line  <link href='\{% static "vendor/css/orders.css" %\} rel="stylesheet"'/>\line\{% endblock %\}\line\{% load humanize %\}\line\{% block content %\}\line <section>\line     <div class="container pt-5">\line         <div class="text-center mt-5">\line             <h1>\f0\lang1049\'c7\'e0\'ea\'e0\'e7\'fb\f2\lang1033 </h1>\line             <div class="orders mt-5">\line                 <table class="table">\line                     <thead>\line                     <tr class="table-light">\line                         <th scope="col">#</th>\line                         <th scope="col">\f0\lang1049\'d1\'f2\'e0\'f2\'f3\'f1\f2\lang1033 </th>\line                         <th scope="col">\f0\lang1049\'d1\'ee\'e7\'e4\'e0\'ed\f2\lang1033 </th>\line                         <th scope="col">\f0\lang1049\'c8\'f2\'ee\'e3\'ee\f2\lang1033 </th>\line                         <th scope="col">\f0\lang1049\'c4\'e5\'e9\'f1\'f2\'e2\'e8\'e5\f2\lang1033 </th>\line                     </tr>\line                     </thead>\line                     <tbody>\line                     \{% for order in object_list %\}\line                     <tr>\line                         <th scope="row">\{\{ order.id \}\}\cf7\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1 </th>\line                         <td\{\{ order.get_status_display \}\}</td>\line                         <td>\{\{ order.created|naturaltime\cf7\par
+\cf1  \}\}</td>\line                         <td>\{\{ order.basket_history.total_sum|intcomma\cf7\par
+\cf1  \}\}</td>\line                         <td>\line                             <a href="order.html">\f0\lang1049\'ef\'f0\'ee\'f1\'ec\'ee\'f2\'f0\'e5\'f2\'fc\f2\lang1033 </a>\line                         </td>\line                     </tr>\line\line                     \{% endfor %\}\line                     </tbody>\line                 </table>\line             </div>\line         </div>\line     </div>\line </section>\line\line\{% endblock %\}\par
+\cf0\f1 44. \f0\lang1049\'cf\'f0\'ee\'ef\'e8\'f8\'e8\'ec \f1\lang1033 urls\f2\par
+\cf3\ul\i\f0\lang1049 orders/urls.py\par
+\cf2\ulnone\i0\f2 urlpatterns = [\line\f1\lang1033 ...\b\f2\lang1049\line\cf1     \b0 path(''\b , \b0 OrderListView.as_view()\b , \b0 name='orders_list')\b ,\line\cf2\line\b0 ]\par
+\cf3\ul\i products/templates/products/base.html\par
+\ulnone\i0\f1\lang1033 ...\par
+\cf2\f2 <li><a class="dropdown-item" href="\cf1\{%\cf2  \cf1 url 'orders:orders_list' %\}\cf2 ">\f0\lang1049\'c7\'e0\'ea\'e0\'e7\'fb\f2\lang1033 </a></li>\par
+\cf3\f1 ...\f2\lang1049\par
+\cf0\f0\'d2\'e5\'ef\'e5\'f0\'fc \'ef\'e5\'f0\'e5\'e9\'e4\'ff \'ed\'e0 \'e2\'ea\'eb\'e0\'e4\'ea\'f3 \'e7\'e0\'ea\'e0\'e7\'fb \'e2 \'ef\'f0\'ee\'f4\'e8\'eb\'e5 \'ec\'fb \'f3\'e2\'e8\'e4\'e5\'ec \'e2\'f1\'e5 \'e7\'e0\'ea\'e0\'e7\'fb\f1\lang1033 .\par
+45. \f0\lang1049\'c6\'e5\'eb\'e0\'e5\'ec \'f1\'f2\'f0\'e0\'ed\'e8\'f6\'f3 \'e4\'e5\'f2\'e0\'eb\'e8\'e7\'e0\'f6\'e8\'e8 \'e7\'e0\'ea\'e0\'e7\'e0\par
+\cf5\ul\i\f2 orders/views.py\par
+\cf2\ulnone\i0\f1\lang1033 ...\f2\lang1049\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1 class OrderDetailView(DetailView):\line     template_name = 'order\f1\lang1033 s\f2\lang1049 /order.html'\line     model = Order\line\line     def get_context_data(self\b , \b0 **kwargs):\line         context = super(OrderDetailView\b ,\b0 self).get_context_data(**kwargs)\line         context['title'] = f'Store - \f0\'c7\'e0\'ea\'e0\'e7\f2  \f5\u8470?\f2\{self.object.id\}'\line         return context\par
+\cf2\f1\lang1033 ...\f2\lang1049\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf5\ul\i orders/templates/orders/order.html\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\ulnone\i0\{% extends 'products/base.html' %\}\line\{% load static %\}\line\{% load humanize %\}\line\{% block css %\}\line  <link href='\{% static "vendor/css/orders.css" %\} rel="stylesheet"'/>\line\{% endblock %\}\par
+\line\{% block content %\}\line <section>\line     <div class="container pt-5">\line         <div class="text-center mt-5">\line             <h1>\f0\'c7\'e0\'ea\'e0\'e7\f2  \f5\u8470?\f2\{\{ object.id \}\}</h1>\line             <div class="orders mt-5">\line                 <table class="table">\line                     <thead>\line                     <tr>\line                         <th scope="col">\f0\'cd\'e0\'e7\'e2\'e0\'ed\'e8\'e5\f2 </th>\line                         <th scope="col">\f0\'ca\'ee\'eb\f2 -\f0\'e2\'ee\f2 </th>\line                         <th scope="col">\f0\'d6\'e5\'ed\'e0\f2 </th>\line                         <th scope="col">\f0\'d1\'f3\'ec\'ec\'e0\f2 </th>\line                     </tr>\line                     </thead>\line                     <tbody>\line                     \{% for purchased_item in object.basket_history.purchased_items%\}\line                     <tr>\line                         <th scope="row">\line                             \{\{ purchased_item.product_name \}\}\line                         </th>\line                         <td>\{\{ purchased_item.quantity \}\}</td>\line                         <td>\{\{ purchased_item.price|intcomma \}\} \f0\'f0\'f3\'e1\f2 </td>\line                         <td>\{\{ purchased_item.sum|intcomma \}\} \f0\'f0\'f3\'e1\f2 .</td>\line                     </tr>\line                     \{% endfor %\}\line                     </tbody>\line                 </table>\line                 <p class="float-right h4 mt-3">\f0\'c8\'f2\'ee\'e3\'ee\f2  \{\{ object.basket_history.total_sum|intcomma \}\} \f0\'f0\'f3\'e1\f2 .</p>\line             </div>\line         </div>\line     </div>\line </section>\line\line\{% endblock %\}\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf5\ul\i orders/urls.py\par
+\cf2\f1\lang1033 ...\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf1\ulnone\i0\f2 path('order/<int:pk>'\b , \b0 OrderDetailView.as_view()\b , \b0 name='order')\b ,\par
+\line\cf5\ul\b0\i orders/templates/orders/orders.html\par
+\cf2\ulnone\i0\f1 ...\par
+\cf1\f2 <td>\line     <a href="\{% url 'orders:order' order.id %\}">\f0\lang1049\'ef\'f0\'ee\'f1\'ec\'ee\'f2\'f0\'e5\'f2\'fc\f2\lang1033 </a>\line </td>\par
+\cf2\f1 ...\f2\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf5\ul\i\lang1049\par
+\cf7\ulnone\i0\par
+\cf3\ul\i\f0\par
 \cf0\ulnone\i0\f2\lang1033\par
 \cf5\ul\i\f1\par
 \cf0\ulnone\i0\par

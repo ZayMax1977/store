@@ -4,7 +4,7 @@ import stripe
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy, reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, ListView, DetailView
 
 from common.views import TitleMixin
 from orders.forms import OrderForm
@@ -22,6 +22,24 @@ class CanceledTemplateView(TemplateView):
     template_name = 'orders/canceled.html'
     title = 'Store - Заказ отменен!'
 
+class OrderDetailView(DetailView):
+    template_name = 'orders/order.html'
+    model = Order
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderDetailView,self).get_context_data(**kwargs)
+        context['title'] = f'Store - Заказ №{self.object.id}'
+        return context
+
+class OrderListView(TitleMixin, ListView):
+    template_name = 'orders/orders.html'
+    title = 'Store - Заказы'
+    queryset = Order.objects.all()
+    ordering = ('-created')
+
+    def get_queryset(self):
+        queryset = super(OrderListView,self).get_queryset()
+        return queryset.filter(initiator = self.request.user)
 
 class OrderCreateView(TitleMixin,CreateView):
     template_name = 'orders/order-create.html'
