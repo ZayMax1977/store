@@ -8,6 +8,7 @@ from django.views.generic import CreateView, TemplateView
 
 from common.views import TitleMixin
 from orders.forms import OrderForm
+from orders.models import Order
 from products.models import Basket
 from store import settings
 
@@ -34,9 +35,11 @@ class OrderCreateView(TitleMixin,CreateView):
         checkout_session = stripe.checkout.Session.create(
             line_items=baskets.stripe_products(),
             mode='payment',
+            metadata ={'order_id': self.object.id},
             success_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_success')),
             cancel_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_canceled')),
         )
+        # print('checkout_session: ', checkout_session.metadata.order_id)
         return  HttpResponseRedirect(checkout_session.url,status = HTTPStatus.SEE_OTHER)
 
     def form_valid(self, form):
@@ -51,7 +54,6 @@ def stripe_webhook_view(request):
     event = None
 
     try:
-
         event = stripe.Webhook.construct_event(
             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
@@ -60,17 +62,15 @@ def stripe_webhook_view(request):
     except stripe.error.SignatureVerificationError as e:
         return HttpResponse(status=400)
 
-
     if event['type'] == 'checkout.session.completed':
         session = stripe.checkout.Session.retrieve(
             event['data']['object']['id'],
             expand=['line_items'],
         )
-
         line_items = session.line_items
-        fulfill_order(line_items)
-
+        fulfill_order(line_items,session)
     return HttpResponse(status=200)
 
-def fulfill_order(line_items):
-    print('это id: ', line_items.data[0].id)
+def fulfill_order(line_items,session):
+    order = Order.objects.get(id=session.metadata.order_id)
+    order.update_after_payment()
