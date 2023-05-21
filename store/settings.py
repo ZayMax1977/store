@@ -11,22 +11,50 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env(
+    DEBUG=(bool),
+    DOMAIN_NAME = (str),
+    SECRET_KEY=(str),
+    DATABASE_NAME=(str),
+    DATABASE_USER=(str),
+    DATABASE_PASSWORD=(str),
+    DATABASE_PORT=(int),
+    DATABASE_HOST=(str),
+
+    EMAIL_BACKEND=(str),
+    EMAIL_HOST=(str),
+    EMAIL_PORT=(int),
+    EMAIL_HOST_USER=(str),
+    EMAIL_HOST_PASSWORD=(str),
+    EMAIL_USE_TLS=(bool),
+    SERVER_EMAIL=(str),
+    CELERY_BROKER_URL=(str),
+    CELERY_RESULT_BACKEND=(str),
+    STRIPE_PUBLIC_KEY=(str),
+    STRIPE_SECRET_KEY=(str),
+    STRIPE_WEBHOOK_SECRET=(str),
+
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(BASE_DIR/'.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rzpatvh59(y&il&4-jx)s(1$q%77bf&*3m*o-9&93b+&0qxkiv'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
-DOMAIN_NAME = 'http://127.0.0.1:8000'
+
+DOMAIN_NAME = env('DOMAIN_NAME')
 
 
 
@@ -47,7 +75,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     "debug_toolbar",
     'django.contrib.humanize',
-
+    'django_extensions',
     'products',
     'users',
     'orders'
@@ -94,11 +122,11 @@ WSGI_APPLICATION = 'store.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "store_db_store",
-        "USER": "postgres",
-        "PASSWORD": "1977",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": env('DATABASE_NAME'),
+        "USER": env('DATABASE_USER'),
+        "PASSWORD": env('DATABASE_PASSWORD'),
+        "HOST": env('DATABASE_HOST'),
+        "PORT": env('DATABASE_PORT'),
     }
 }
 
@@ -160,13 +188,16 @@ LOGIN_URL = '/user/login/'
 RECIPIENTS_EMAIL = ['manager@mysite.com']
 DEFAULT_FROM_EMAIL = 'admin@mysite.com'
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'maxim.zanchenko@yandex.ru'
-EMAIL_HOST_PASSWORD = 'teleskop1977'
-EMAIL_USE_TLS = True
-SERVER_EMAIL = 'maxim.zanchenko@yandex.ru'
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = env('EMAIL_HOST')
+    EMAIL_PORT = env('EMAIL_PORT')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+    EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+    SERVER_EMAIL = env('SERVER_EMAIL')
 
 # OAuth
 LOGIN_REDIRECT_URL = '/products' # return from git by registration
@@ -198,10 +229,10 @@ CACHES = {
 }
 
 # Celery
-CELERY_BROKER_URL = "redis://127.0.0.1:6379"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379"
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
 
 # stripe
-STRIPE_PUBLIC_KEY = 'pk_test_51N4OnhCtFZyAUk5ylPdfNBvZ9BuMsjWIFfgWNLDsuLHtsjfHOLPdy7OKsDCqqjVy9ZKgunGggOc9POKUhINc3JRi00U8Qy2rRJ'
-STRIPE_SECRET_KEY = 'sk_test_51N4OnhCtFZyAUk5yHNq8EYyLjyRxu8qiSxiLpLovEjS6W9M8SFiq8WauF1zCJIEsmFY3eLoyjahgLJMqlBs9k4h900AdSnl2nI'
-STRIPE_WEBHOOK_SECRET = 'whsec_1f02bbffa8bc876cfae807da1ddddeb2d0ff82c2be0345d3f3205d136ca965b7'
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
