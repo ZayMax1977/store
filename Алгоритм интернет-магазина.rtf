@@ -50195,8 +50195,41 @@ duction CREATEDB;\cf5  # \f0\lang1049\'ef\'f0\'e0\'e2\'ee \'ef\'ee\'eb\'fc\'e7\'
 \cf0\'c8\par
 \cf1\f1\lang1033 pip install psycopg2-binary\f0\lang1049  \par
 \cf0\'d2\'e5\'ef\'e5\'f0\'fc \'ec\'e8\'e3\'f0\'e0\'f6\'e8\'e8 \'ef\'f0\'ee\'f8\'eb\'e8\par
-20. \'d1\'e1\'ee\'f0 \'f1\'f2\'e0\'f2\'e8\'ea\'e8\par
-\cf15\par
+20. \'d1\'e1\'ee\'f0 \'f1\'f2\'e0\'f2\'e8\'ea\'e8. \'c8\'f5 \'ee\'e1\'f0\'e0\'e1\'e0\'f2\'fb\'e2\'e0\'e5\'f2 \'ed\'e0 \'f1\'e5\'f0\'e2\'e5\'f0\'e5 \'f1\'e5\'f0\'e2\'e8\'f1 \f1\lang1033 Nginx.\par
+\f0\lang1049\'d3\'ea\'e0\'e6\'e8\'ec \'e4\'ee\'ef\'ee\'eb\'ed\'e8\'f2\'e5\'eb\'fc\'ed\'f3\'fe \'ef\'e5\'f0\'e5\'ec\'e5\'ed\'ed\'f3\'fe\f1\lang1033  STATIC_ROOT \f0\lang1049\'e2 \'ea\'ee\'f2\'ee\'f0\'ee\'e9 \'e1\'f3\'e4\'f3\'f2 \'ed\'e5 \'f2\'ee\'eb\'fc\'ea\'ee \'ed\'e0\'f8\'e8 \'f1\'f2\'e0\'f2\'e8\'f7\'e5\'f1\'ea\'e8\'e5 \'f4\'e0\'e9\'eb\'fb \'ed\'ee \'e8 \'f1\'f2\'e0\'f2\'e8\'ea\'e0 \'e0\'e4\'ec\'e8\'ed\'ea\'e8. \'d1\'f2\'e0\'f2\'e8\'ea\'e0 \'f2\'ee\'e6\'e5 \'ec\'ee\'e6\'e5\'f2 \'e1\'fb\'f2\'fc \'ed\'e0 \'ec\'e8\'ea\'f0\'ee\'f1\'e5\'f0\'e2\'e8\'f1\'ed\'ee\'e9 \'e0\'f0\'f5\'e8\'f2\'e5\'ea\'f2\'f3\'f0\'e5 (\'f2.\'e5. \'ed\'e0\'f5\'ee\'e4\'e8\'f2\'fc\'f1\'ff \'ed\'e0 \'ee\'f2\'e4\'e5\'eb\'fc\'ed\'ee\'ec \'f1\'e5\'f0\'e2\'e5\'f0\'e5\f1\lang1033 )\f0\lang1049 , \'ed\'ee \'f3\'ed\'e0\'f1 \'ec\'ee\'ed\'ee\'eb\'e8\'f2\'ed\'e0\'ff.\f1\lang1033\par
+\cf5\ul\i settings.py\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf2\ulnone\i0\f2 STATIC_URL = '/static/'\line STATICFILES_DIRS = (BASE_DIR / 'static'\b ,\b0 )\line\cf1\line STATIC_URL = '/static/'\line\line\f1 # \f2 STATICFILES_DIRS = (BASE_DIR / 'static'\b ,\b0 )\f1   \cf3 // \f0\lang1049\'e7\'e0\'ea\'ee\'ec\'e5\'ed\'f2\'e8\'f0\'f3\'e5\'ec \'fd\'f2\'f3 \'f1\'f2\'f0\'ee\'ea\'f3 \'ee\'ed\'e0 \'ed\'e5 \'e4\'eb\'ff \'f1\'e5\'f0\'e2\'e5\'f0\'e0. \'c5\'f1\'eb\'e8 \'ed\'e0\'e4\'ee \'e1\'f3\'e4\'e5\'f2 \'f0\'e0\'e1\'ee\'f2\'e0\'f2\'fc\f1\lang1033  \f0\lang1049\'f1 \'ef\'f0\'ee\'e5\'ea\'f2\'ee\'ec \'f1\'ed\'ee\'e2\'e0 \'ed\'e0 \'eb\'ee\'ea\'ee\'eb\'fc\'ed\'ee\'ec \'f2\'ee \'f0\'e0\'f1\'ea\'ee\'ec\'e5\'ed\'f2\'e8\'f0\'f3\'e5\'ec \'e8 \'e7\'e0\'ea\'ee\'ec\'e5\'ed\'f2\'e8\'f0\'f3\'e5\'ec \'ef\'e5\'f0\'e5\'ec\'e5\'ed\'ed\'f3\'fe \f1\lang1033 STATIC_ROOT. \f0\lang1049\'cf\'ee \'ee\'ea\'ee\'ed\'f7\'e0\'ed\'e8\'e8 \'f0\'e5\'e4\'e0\'ea\'f2\'e8\'f0\'ee\'e2\'e0\'ed\'e8\'ff \'ef\'f0\'ee\'e5\'ea\'f2\'e0 \'e2\'e5\'f0\'ed\'e5\'ec \'e2\'f1\'e5 \'ee\'e1\'f0\'e0\'f2\'ed\'ee.\f2\lang1033\line\cf1\line STATIC_ROOT = BASE_DIR / 'static'\par
+\cf0\f0\lang1049 21. \'ce\'e1\'ed\'ee\'e2\'e8\'ec \'f4\'e0\'e9\'eb \f1\lang1033 settings.py \f0\lang1049\'ed\'e0 \'f1\'e5\'f0\'e2\'e5\'f0\'e5\par
+22. \'e7\'e0\'f5\'ee\'e4\'e8\'ec \'ed\'e0 \'f1\'e5\'f0\'e2\'e5\'f0 \'f7\'e5\'f0\'e5\'e7 \f1\lang1033 cmd\par
+\f0\lang1049\'e7\'e0\'f5\'ee\'e4\'e8\'ec \'e2 \f1\lang1033  \f0\lang1049\'ef\'e0\'ef\'ea\'f3 \f1\lang1033 store-server\par
+\f0\lang1049\'e0\'ea\'f2\'e8\'e2\'e8\'f0\'f3\'e5\'ec \'e2\'e8\'f0\'f2\'f3\'e0\'eb\'fc\'ed\'ee\'e5 \'ee\'ea\'f0\'f3\'e6\'e5\'ed\'e8\'e5\f1\lang1033 :\par
+\cf3 max@test-store-server:~/store-server$ \cf1 source venv/bin/activate\par
+\cf0\f0\lang1049\'d1\'ee\'e1\'e5\'f0\'e5\'ec \'f1\'f2\'e0\'f2\'e8\'ea\'f3\f1\lang1033 :\par
+\cf3 (venv) max@test-store-server:~/store-server/store$ \cf1 python3 manage.py collectstatic\par
+-> yes\par
+\cf0\f0\lang1049\'cf\'f0\'ee\'e2\'e5\'f0\'e8\'ec \'ef\'ee\'ff\'e2\'e8\'eb\'e8\'f1\'fc \'eb\'e8 \'ed\'ee\'e2\'fb\'e5 \'f4\'e0\'e9\'eb\'fb\f1\lang1033 :\par
+\cf1 (venv) max@test-store-server:~/store-server/store$ cd static\par
+(venv) max@test-store-server:~/store-server/store/static$ ls\par
+admin  debug_toolbar  django_extensions  vendor\par
+\cf0\f0\lang1049\'c2\'e8\'e4\'e8\'ec \'f7\'f2\'ee \'ea\'f0\'ee\'ec\'e5 \f1\lang1033 vendor \f0\lang1049\'ef\'ee\'ff\'e2\'e8\'eb\'e8\'f1\'fc \'ed\'ee\'e2\'fb\'e5 \'ef\'e0\'ef\'ea\'e8\par
+\cf3\ul\i\f1\lang1033 settings.py\par
+\cf2\ulnone\i0\f2 ALLOWED_HOSTS = [\cf1 '84.38.182.150'\cf2 ]\par
+\cf0\f0\lang1049\'ef\'e5\'f0\'e5\'e7\'e0\'ef\'e8\'f8\'e8\'ec \f1\lang1033 settings.py \f0\lang1049\'ed\'e0 \'f1\'e5\'f0\'e2\'e5\'f0\'e5\ul\i\f1\lang1033\par
+\ulnone\i0 23. \f0\lang1049\'f1\'e4\'e5\'eb\'e0\'e5\'ec \'ef\'f0\'f0\'ee\'e2\'e5\'f0\'ee\'f7\'ed\'fb\'e9 \'e7\'e0\'ef\'f3\'f1\'ea \'f1\'e5\'f0\'e2\'e5\'f0\'e0\par
+\cf5 (venv) max@test-store-server:~/store-server/store$ \cf1 python3 manage.py runserver 0.0.0.0:8000    \f1\lang1033\par
+\cf0\f0\lang1049\'d2\'e5\'ef\'e5\'f0\'fc \'ef\'f0\'ee\'ef\'e8\'f8\'e8\'ec \'ed\'e0\'f8 \f1\lang1033 Ip\f0\lang1049  \'e2\'e7\'ff\'f2\'fb\'e9 \'f1 \'f1\'e5\'f0\'e2\'e5\'f0\'e0\f1\lang1033  \f0\lang1049\'f1 \'ef\'ee\'f0\'f2\'ee\'ec \'e2 \'e0\'e4\'f0\'e5\'f1\'ed\'ee\'e9 \'f1\'f2\'f0\'ee\'ea\'e5 \'f1\'e5\'f0\'e2\'e5\'f0\'e0\f1\lang1033 :\par
+{{\field{\*\fldinst{HYPERLINK http://84.38.182.150:8000/ }}{\fldrslt{http://84.38.182.150:8000/\ul0\cf0}}}}\f1\fs24\par
+\f0\lang1049\'d1\'e0\'e9\'e8 \'e7\'e0\'ef\'f3\'f1\'f2\'e8\'eb\'f1\'ff \'ed\'ee \'f1\'f2\'e8\'eb\'e8 \'ef\'ee\'ea\'e0 \'ed\'e5 \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e0\'fe\'f2\'f1\'ff.\f1\lang1033\par
+\par
+\cf1\par
+\cf0\par
+\f0\lang1049\par
+\f2\lang1033\par
+\cf1\par
+\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl240\slmult1\cf15\f0\lang1049\par
 \cf0\f1\lang1033\par
 \f2\par
 \cf1\par
