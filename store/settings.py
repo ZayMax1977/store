@@ -52,7 +52,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['84.38.182.150']
+ALLOWED_HOSTS = ['84.38.182.150', '127.0.0.1']
 
 DOMAIN_NAME = env('DOMAIN_NAME')
 
@@ -168,11 +168,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# if DEBUG:
-#     STATICFILES_DIRS = (BASE_DIR / 'static',)
-#
-# else:
-STATIC_ROOT = BASE_DIR / 'static'
+if DEBUG:
+    STATICFILES_DIRS = (BASE_DIR / 'static',)
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -223,15 +223,27 @@ SOCIALACCOUNT_PROVIDERS = {
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+# CACHE
 
-# Cache
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'store_cache')
+if DEBUG:
+# Cache - for cache in files
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+            'LOCATION': os.path.join(BASE_DIR, 'store_cache')
+        }
     }
-}
-
+# Cache - for cache in redis
+else:
+    CACHES = {
+        'default':{
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/1',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
 # Celery
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
